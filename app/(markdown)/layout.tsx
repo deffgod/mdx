@@ -1,4 +1,4 @@
-import { Main, Section, Container } from "@/components/craft";
+import * as Craft from "@/components/craft";
 
 export default function MarkdownLayout({
   children,
@@ -6,10 +6,12 @@ export default function MarkdownLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Main>
-      <Section>
-        <Container className="max-w-3xl">{children}</Container>
-      </Section>
-    </Main>
+    <Craft.Main>
+      <Craft.Section>
+        <Craft.Container>
+          <Craft.Prose>{children}</Craft.Prose>
+        </Craft.Container>
+      </Craft.Section>
+    </Craft.Main>
   );
 }

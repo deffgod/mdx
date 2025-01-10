@@ -1,203 +1,215 @@
-// craft-ds, v0.2.81
+// craft-ds, v0.3.2
 // This is a design system for building responsive layouts in React
 
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-// Utility function to merge class names using clsx and tailwind-merge
-
+// Utility function to merge class names
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Types for component props
-
-type LayoutProps = {
-  children: React.ReactNode;
-  className?: string;
-};
-
-type MainProps = {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-};
-
-type SectionProps = {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-};
-
-type ContainerProps = {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-};
-
-type ArticleProps = {
+// Base interface for common props
+interface BaseProps {
   children?: React.ReactNode;
   className?: string;
   id?: string;
+}
+
+// HTML props interface for dangerouslySetInnerHTML
+interface HTMLProps {
   dangerouslySetInnerHTML?: { __html: string };
+}
+
+// Responsive property type
+type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>;
+
+// Available breakpoints
+type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
+
+// Box-specific props
+interface BoxProps extends BaseProps {
+  direction?: ResponsiveValue<"row" | "col">;
+  wrap?: ResponsiveValue<"wrap" | "nowrap">;
+  gap?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12>;
+  cols?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+}
+
+// Style configurations
+const styles = {
+  typography: {
+    base: [
+      "font-sans antialiased",
+      // Headings
+      "[&_h1]:text-4xl [&_h1]:font-medium [&_h1]:tracking-tight",
+      "[&_h2]:text-3xl [&_h2]:font-medium [&_h2]:tracking-tight",
+      "[&_h3]:text-2xl [&_h3]:font-medium [&_h3]:tracking-tight",
+      "[&_h4]:text-xl [&_h4]:font-medium [&_h4]:tracking-tight",
+      "[&_h5]:text-lg [&_h5]:font-medium [&_h5]:tracking-tight",
+      "[&_h6]:text-base [&_h6]:font-medium [&_h6]:tracking-tight",
+      // Text elements
+      "[&_p]:text-base [&_p]:leading-7",
+      "[&_strong]:font-medium",
+      "[&_small]:text-sm [&_small]:font-medium [&_small]:leading-none",
+      "[&_sub]:text-sm [&_sup]:text-sm",
+    ],
+    links: [
+      "[&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-all hover:[&_a]:text-muted-foreground",
+    ],
+    lists: [
+      "[&_ul]:list-disc [&_ul]:ml-6 [&_ul]:my-2",
+      "[&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:my-2",
+      "[&_dl_dt]:font-medium [&_dl_dt:not(:first-child)]:mt-2 [&_dl_dd]:ml-4",
+    ],
+    code: [
+      "[&_code]:relative [&_code]:rounded [&_code]:bg-muted [&_code]:px-[0.3rem] [&_code]:py-[0.2rem] [&_code]:font-mono [&_code]:text-sm [&_code]:font-semibold",
+      "[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:bg-muted [&_pre]:p-4",
+      "[&_pre_code]:bg-transparent [&_pre_code]:p-0",
+    ],
+    tables: [
+      "[&_table]:w-full [&_table]:overflow-y-auto",
+      "[&_thead]:border-b [&_tr]:border-t [&_tr]:p-0",
+      "[&_th]:border [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold",
+      "[&_td]:border [&_td]:px-4 [&_td]:py-2 [&_td]:text-left [&_td]:text-muted-foreground",
+    ],
+    media: [
+      "[&_img]:rounded-lg [&_img]:border",
+      "[&_video]:rounded-lg [&_video]:border",
+      "[&_figure_figcaption]:text-xs [&_figure_figcaption]:mt-2 [&_figure_figcaption]:text-muted-foreground",
+    ],
+    misc: [
+      "[&_blockquote]:border-l-2 [&_blockquote]:pl-6 [&_blockquote]:italic",
+      "[&_hr]:my-6",
+      "[&_abbr]:cursor-help [&_abbr]:underline [&_abbr]:underline-offset-4",
+      "[&_details]:rounded-lg [&_details]:border [&_details]:px-4 [&_details]:py-2",
+      "[&_summary]:cursor-pointer [&_summary]:font-semibold",
+      "[&_kbd]:rounded-md [&_kbd]:border [&_kbd]:bg-muted [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono",
+      "[&_mark]:bg-primary/10 [&_mark]:px-1",
+      "[&_::selection]:bg-primary/10",
+    ],
+  },
+  layout: {
+    spacing: "[&>*+*]:mt-6",
+    article: "max-w-prose",
+    container: "max-w-5xl mx-auto p-6 sm:p-8",
+    section: "py-8 md:py-12",
+  },
 };
 
-type BoxProps = {
-  children: React.ReactNode;
-  className?: string;
-  direction?:
-    | "row"
-    | "col"
-    | {
-        sm?: "row" | "col";
-        md?: "row" | "col";
-        lg?: "row" | "col";
-        xl?: "row" | "col";
-        "2xl"?: "row" | "col";
-      };
-  wrap?:
-    | boolean
-    | {
-        sm?: boolean;
-        md?: boolean;
-        lg?: boolean;
-        xl?: boolean;
-        "2xl"?: boolean;
-      };
-  gap?:
-    | number
-    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
-  cols?:
-    | number
-    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
-  rows?:
-    | number
-    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
-};
+// Combine all typography styles
+const baseTypographyStyles = [
+  ...styles.typography.base,
+  ...styles.typography.links,
+  ...styles.typography.lists,
+  ...styles.typography.code,
+  ...styles.typography.tables,
+  ...styles.typography.media,
+  ...styles.typography.misc,
+];
 
-// Layout Component
-// This component sets up the basic HTML structure and applies global styles
+// Components
+export const Layout = ({ children, className }: BaseProps) => (
+  <html
+    lang="en"
+    suppressHydrationWarning
+    className={cn("scroll-smooth antialiased focus:scroll-auto", className)}
+  >
+    {children}
+  </html>
+);
 
-const Layout = ({ children, className }: LayoutProps) => {
-  return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("scroll-smooth antialiased focus:scroll-auto", className)}
-    >
-      {children}
-    </html>
-  );
-};
+export const Main = ({ children, className, id }: BaseProps) => (
+  <main className={cn(baseTypographyStyles, className)} id={id}>
+    {children}
+  </main>
+);
 
-// Main Component
-// This component is used for the main content area of the page
+export const Section = ({ children, className, id }: BaseProps) => (
+  <section className={cn(styles.layout.section, className)} id={id}>
+    {children}
+  </section>
+);
 
-const Main = ({ children, className, id }: MainProps) => {
-  return (
-    <main
-      className={cn(
-        // `Main` Specific Styles
-        "max-w-none prose-p:m-0",
-        // General Prose
-        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
-        // Prose Headings
-        "prose-headings:font-normal",
-        // Prose Strong
-        "prose-strong:font-semibold",
-        // Inline Links
-        "prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-2 prose-a:text-foreground/75 prose-a:transition-all",
-        // Inline Link Hover
-        "hover:prose-a:decoration-primary hover:prose-a:text-foreground",
-        // Blockquotes
-        "prose-blockquote:not-italic",
-        // Pre and Code Blocks
-        "prose-pre:border prose-pre:bg-muted/25 prose-pre:text-foreground",
-        className
-      )}
-      id={id}
-    >
-      {children}
-    </main>
-  );
-};
+export const Container = ({ children, className, id }: BaseProps) => (
+  <div className={cn(styles.layout.container, className)} id={id}>
+    {children}
+  </div>
+);
 
-// Section Component
-// This component is used for defining sections within the page
-
-const Section = ({ children, className, id }: SectionProps) => {
-  return (
-    <section className={cn("py-8 md:py-12", className)} id={id}>
-      {children}
-    </section>
-  );
-};
-
-// Container Component
-// This component is used for containing content with a maximum width and padding
-
-const Container = ({ children, className, id }: ContainerProps) => {
-  return (
-    <div className={cn("mx-auto max-w-5xl", "p-6 sm:p-8", className)} id={id}>
-      {children}
-    </div>
-  );
-};
-
-// Article Component
-// This component is used for rendering articles with optional dangerouslySetInnerHTML
-
-const Article = ({
+export const Article = ({
   children,
   className,
   id,
   dangerouslySetInnerHTML,
-}: ArticleProps) => {
-  return (
-    <article
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      className={cn(
-        // General Prose
-        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
-        // Prose Headings
-        "prose-headings:font-normal",
-        // Prose Paragraphs
-        "prose-p:mb-0",
-        // Prose Strong
-        "prose-strong:font-semibold",
-        // Inline Links
-        "prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-2 prose-a:text-foreground/75 prose-a:transition-all",
-        // Inline Link Hover
-        "hover:prose-a:decoration-primary hover:prose-a:text-foreground",
-        // Blockquotes
-        "prose-blockquote:not-italic",
-        // Pre and Code Blocks
-        "prose-pre:border prose-pre:bg-muted/25",
-        className
-      )}
-      id={id}
-    >
-      {children}
-    </article>
-  );
+}: BaseProps & HTMLProps) => (
+  <article
+    dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+    className={cn(
+      baseTypographyStyles,
+      styles.layout.spacing,
+      styles.layout.article,
+      className
+    )}
+    id={id}
+  >
+    {children}
+  </article>
+);
+
+export const Prose = ({
+  children,
+  className,
+  id,
+  dangerouslySetInnerHTML,
+}: BaseProps & HTMLProps) => (
+  <div
+    dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+    className={cn(baseTypographyStyles, styles.layout.spacing, className)}
+    id={id}
+  >
+    {children}
+  </div>
+);
+
+// Utility function for responsive classes
+const getResponsiveClass = <T extends string | number>(
+  value: ResponsiveValue<T> | undefined,
+  classMap: Record<T, string>
+): string => {
+  if (!value) return "";
+  if (typeof value === "object") {
+    return Object.entries(value)
+      .map(([breakpoint, val]) => {
+        const prefix = breakpoint === "base" ? "" : `${breakpoint}:`;
+        return val ? `${prefix}${classMap[val as T]}` : "";
+      })
+      .filter(Boolean)
+      .join(" ");
+  }
+  return classMap[value];
 };
 
-const Box = ({
+export const Box = ({
   children,
   className,
   direction = "row",
-  wrap = false,
+  wrap = "nowrap",
   gap = 0,
   cols,
   rows,
+  id,
 }: BoxProps) => {
   const directionClasses = {
     row: "flex-row",
     col: "flex-col",
   };
 
-  const wrapClasses = wrap ? "flex-wrap" : "flex-nowrap";
+  const wrapClasses = {
+    wrap: "flex-wrap",
+    nowrap: "flex-nowrap",
+  };
 
   const gapClasses = {
     0: "gap-0",
@@ -227,129 +239,20 @@ const Box = ({
     12: "grid-cols-12",
   };
 
-  const getResponsiveClasses = (
-    prop: any,
-    classMap: Record<string | number, string>
-  ) => {
-    if (typeof prop === "object") {
-      return Object.entries(prop)
-        .map(([breakpoint, value]) => {
-          const prefix = breakpoint === "sm" ? "" : `${breakpoint}:`;
-          return `${prefix}${classMap[value as keyof typeof classMap] || ""}`;
-        })
-        .join(" ");
-    }
-    return classMap[prop as keyof typeof classMap] || "";
-  };
-
-  const stackClasses = cn(
-    cols || rows ? "grid" : "flex",
-    getResponsiveClasses(direction, directionClasses),
-    typeof wrap === "boolean"
-      ? wrapClasses
-      : getResponsiveClasses(wrap, { true: "flex-wrap", false: "flex-nowrap" }),
-    getResponsiveClasses(gap, gapClasses),
-    cols && getResponsiveClasses(cols, colsClasses),
-    rows && getResponsiveClasses(rows, colsClasses), // Assuming rows use the same classes as cols
-    className
+  return (
+    <div
+      className={cn(
+        cols || rows ? "grid" : "flex",
+        getResponsiveClass(direction, directionClasses),
+        getResponsiveClass(wrap, wrapClasses),
+        getResponsiveClass(gap, gapClasses),
+        cols && getResponsiveClass(cols, colsClasses),
+        rows && getResponsiveClass(rows, colsClasses),
+        className
+      )}
+      id={id}
+    >
+      {children}
+    </div>
   );
-
-  return <div className={stackClasses}>{children}</div>;
 };
-
-// Exporting all components for use in other parts of the application
-
-export { Layout, Main, Section, Container, Article, Box };
-
-// Instructions for AI
-
-// How to use craft-ds:
-// 1. Import the components you need in your React components:
-//    import { Layout, Main, Section, Container, Article, Box } from "@/components/craft";
-
-// 2. Use the components to build your layout:
-//    export default function Page() {
-//      return (
-//        <Main>
-//          <Section>
-//            <Container>
-//              <h1>Heading</h1>
-//              <p>Content</p>
-//            </Container>
-//          </Section>
-//        </Main>
-//      );
-//    }
-
-// 3. Customize the components using the className prop:
-//    <Container className="custom-container">
-//      {/* Your content here */}
-//    </Container>
-
-// 4. Use the Box component for flexible layouts:
-//    <Box direction="row" wrap={true} gap={4}>
-//      <div>Item 1</div>
-//      <div>Item 2</div>
-//    </Box>
-
-//    <Box cols={3} gap={4}>
-//      <div>Item 1</div>
-//      <div>Item 2</div>
-//      <div>Item 3</div>
-//    </Box>
-
-// Component Usage Examples:
-
-// Layout
-// <Layout className="custom-class">{/* content here */}</Layout>
-
-// Main
-// <Main className="custom-class" id="main-content">
-//   {/* main content here */}
-// </Main>
-
-// Section
-// <Section className="custom-section" id="unique-section">
-//   {/* section content here */}
-// </Section>
-
-// Container
-// <Container className="custom-container" id="container-id">
-//   {/* contained content here */}
-// </Container>
-
-// Article
-// <Article className="custom-article" id="article-id">
-//   {/* article content here */}
-// </Article>
-
-// Box (Flex mode)
-// <Box
-//   direction={{ sm: "col", md: "row" }}
-//   wrap={true}
-//   gap={{ sm: 2, md: 4 }}
-//   className="justify-between items-center"
-// >
-//   <div>Item 1</div>
-//   <div>Item 2</div>
-// </Box>
-
-// Box (Grid mode)
-// <Box
-//   cols={{ sm: 1, md: 2, lg: 3 }}
-//   gap={{ sm: 2, md: 4 }}
-//   className="justify-items-center items-start"
-// >
-//   <div>Item 1</div>
-//   <div>Item 2</div>
-//   <div>Item 3</div>
-// </Box>
-
-// Additional notes for AI:
-// 1. The Box component is versatile and can be used for both flex and grid layouts.
-// 2. Use the 'direction' prop for flex layouts and 'cols' or 'rows' props for grid layouts.
-// 3. All components support responsive design through Tailwind classes.
-// 4. The cn() function is used to merge Tailwind classes efficiently.
-// 5. Remember to use appropriate semantic HTML structure with these components.
-// 6. These components are designed to work with Tailwind CSS, ensure it's properly set up in the project.
-// 7. For typography styles, refer to the Main and Article components which use Tailwind's typography plugin.
