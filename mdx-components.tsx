@@ -22,6 +22,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const language = className?.replace("language-", "");
       return <Code language={language}>{children as string}</Code>;
     },
+
     // Override paragraph component to prevent invalid nesting
     p: ({ children }) => {
       // Check if children is a single element that should not be wrapped in p
@@ -38,6 +39,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       }
       return <p className="leading-7 [&:not(:first-child)]:mt-6">{children}</p>;
     },
+    // Add blockquote styling
+    blockquote: ({ children }) => (
+      <blockquote className="mt-6 border-l-2 pl-6 italic">
+        {children}
+      </blockquote>
+    ),
     // Inherit any custom components passed in
     ...components,
   };
