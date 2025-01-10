@@ -13,7 +13,7 @@ export default function HomePage() {
 
 const ToDelete = () => {
   return (
-    <section className="p-6 sm:p-24 flex flex-col gap-4 text-center items-center">
+    <section className="p-6 sm:p-12 flex flex-col gap-4 text-center items-center">
       <h1>
         <a
           className="underline underline-offset-2 hover:text-muted-foreground"
@@ -37,6 +37,14 @@ const ToDelete = () => {
         >
           WIP
         </a>
+        . View an{" "}
+        <Link
+          className="underline underline-offset-2 hover:text-muted-foreground"
+          href="/example"
+        >
+          example page
+        </Link>
+        .
       </h2>
 
       {/* Screenshot */}
@@ -46,21 +54,11 @@ const ToDelete = () => {
         height={532.13}
         alt="MDX Starter Screenshot"
         placeholder="blur"
-        className="border rounded-md overflow-hidden"
+        className="my-4 sm:my-8 border rounded-md overflow-hidden"
       />
 
-      {/* Example Page */}
-      <p>
-        <Link
-          className="underline underline-offset-2 hover:text-muted-foreground"
-          href="/example"
-        >
-          View example page
-        </Link>
-      </p>
-
       {/* Vercel Deploy */}
-      <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter">
+      <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx">
         <img
           width="103"
           height="32"
@@ -68,6 +66,12 @@ const ToDelete = () => {
           alt="Deploy with Vercel"
         />
       </a>
+      <p className="text-sm text-muted-foreground">
+        Deploy with{" "}
+        <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx">
+          Vercel
+        </a>
+      </p>
     </section>
   );
 };
