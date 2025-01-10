@@ -1,107 +1,130 @@
-# Next.js and MDX Starter
+# MDX Starter Template
 
-> The fastest way to ship a website ⚡︎
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter&project-name=mdx-starter&repository-name=mdx-starter&demo-url=https%3A%2F%2Fmdx.bridger.to)
-
----
-
-Learn more about [MDX](https://mdxjs.com) and [Markdown](https://www.markdownguide.org).
-
-How [MDX works with Next.js](https://nextjs.org/docs/app/building-your-application/configuring/mdx).
-
----
-
-This is a starter template for building websites using Next.js and MDX. It provides a fast and efficient way to create content-driven websites with the power of React components and the simplicity of Markdown.
+A minimal, modern MDX starter template built with Next.js 15 and Tailwind CSS.
 
 ## Features
 
-- Next.js 14 with App Router
-- MDX support for content creation
-- Tailwind CSS for styling
-- Dark mode support with next-themes
-- Typography plugin for Tailwind CSS
-- Customizable components
-- Ready-to-use layout components
+- **Next.js 15** - Latest App Router and React Server Components
+- **MDX** - Write content using Markdown + React components
+- **Code Highlighting** - Syntax highlighting with copy-to-clipboard
+- **Dark Mode** - Built-in dark mode with system preference detection
+- **Anchor Links** - Clickable heading anchors for easy sharing
+- **Metadata Support** - Built-in frontmatter-style metadata for MDX files
+- **Shadcn/UI** - Beautiful and accessible components
+- **TypeScript** - Full type safety and modern development features
+- **Tailwind CSS** - Utility-first CSS framework
+- **Mobile-First** - Responsive design for all devices
 
 ## Quick Start
 
-1. Clone the repository:
-```
-git clone https://github.com/brijr/mdx-starter.git
-cd mdx-starter
-```
+```bash
+# Clone the repository
+git clone https://github.com/brijr/mdx.git
 
-2. Install dependencies:
-```
+# Install dependencies
 pnpm install
-```
 
-3. Run the development server:
-```
+# Start development server
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+## Documentation
 
-## Project Structure
+### File Structure
 
-- `app/`: Contains the main application code
-- `components/`: Reusable React components
-- `lib/`: Utility functions and helpers
-- `public/`: Static assets
-- `styles/`: Global styles and Tailwind CSS configuration
-
-## Writing Content
-
-Create your content using MDX files in the `app` directory. You can use a mix of Markdown and React components in your MDX files.
-
-Example:
-
-```1:9:app/page.mdx
-import { ThemeToggle } from "@/components/theme/theme-toggle";
-
-# Hello World!
-
-This is the [MDX Starter Template](https://github.com/brijr/mdx-starter). It is built with [brijr/craft](https://github.com/brijr/craft) and [shadcn/ui](https://ui.shadcn.com). Below you will find an example of the markdown home page -> `/page.tsx`.
-
-<a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter&project-name=mdx-starter&repository-name=mdx-starter&demo-url=https%3A%2F%2Fmdx.bridger.to">
-  <img src="https://vercel.com/button" alt="Deploy with Vercel" />
-</a>
+```
+mdx/
+├── app/                # Next.js App Router
+│   ├── (markdown)/    # MDX content routes
+│   └── page.tsx       # Landing page
+├── components/        # React components
+│   ├── mdx/          # MDX-specific components
+│   └── theme/        # Theme components
+└── styles/           # Global styles
 ```
 
+### Writing Content
 
-## Customization
+Create new `.mdx` files in the `app/(markdown)` directory. Each file automatically becomes a route.
 
-### Theming
+#### Basic MDX Example
 
-The project uses `next-themes` for dark mode support. You can customize the theme in the `tailwind.config.ts` file.
+```mdx
+# My New Page
 
-### Typography
+Welcome to my **MDX** page!
 
-The Tailwind CSS typography plugin is included for consistent and beautiful typography. Customize it in the `tailwind.config.ts` file.
+\`\`\`typescript
+// Code with syntax highlighting
+function hello(name: string) {
+  return `Hello, ${name}!`;
+}
+\`\`\`
+```
 
-### Components
+#### Adding Metadata
 
-Custom components are available in the `components` directory. You can use these in your MDX files or create new ones as needed.
+Add metadata to your MDX files for better SEO and content organization:
+
+```mdx
+import { Meta } from "@/components/mdx/meta";
+
+export const metadata = {
+  title: "Your Page Title",
+  description: "A brief description of your page",
+  date: "2025-01-09",
+  author: "Your Name",
+  tags: ["mdx", "next.js", "react"],
+};
+
+<Meta {...metadata} />
+
+# Your content here
+```
+
+The metadata component will automatically display:
+- Title and description
+- Publication date
+- Author information
+- Tags with a beautiful pill-style design
+
+### Features
+
+#### Code Blocks
+- Syntax highlighting for multiple languages
+- Copy-to-clipboard button
+- Dark mode support
+
+#### Anchor Links
+- Clickable `#` next to headings
+- Automatically copies URL with anchor
+- Perfect for sharing specific sections
+
+#### Dark Mode
+- System preference detection
+- Manual toggle option
+- Persists across sessions
+
+#### Metadata Support
+- TypeScript interfaces for type safety
+- Customizable metadata fields
+- Beautiful component for displaying metadata
+- SEO-friendly structure
 
 ## Deployment
 
-This project is ready to be deployed on Vercel. Click the button below to deploy:
+Deploy to Vercel with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter&project-name=mdx-starter&repository-name=mdx-starter&demo-url=https%3A%2F%2Fmdx.bridger.to)
-
-## Learn More
-
-- [MDX Documentation](https://mdxjs.com)
-- [Markdown Guide](https://www.markdownguide.org)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx)
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Pull requests are welcome! Feel free to open an issue for any bugs or feature requests.
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT License - feel free to use this in your own projects!
+
+---
+
+Made by [Bridger](https://bridger.to)
