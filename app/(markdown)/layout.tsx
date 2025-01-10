@@ -8,7 +8,7 @@ export default function MarkdownLayout({
   return (
     <Main>
       <Section>
-        <Container>{children}</Container>
+        <Container className="max-w-3xl">{children}</Container>
       </Section>
     </Main>
   );

@@ -1,79 +1,71 @@
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 
-# Hello World! From MDX with Next.js 15+
+# MDX Starter Template
 
-This is the [MDX Starter Template](https://github.com/brijr/mdx). It is built with [brijr/craft](https://github.com/brijr/craft) and [shadcn/ui](https://ui.shadcn.com). Below you will find an example of the markdown home page -> `/page.tsx`.
+Welcome to the [MDX Starter Template](https://github.com/brijr/mdx)! This template combines the power of [Next.js 15+](https://nextjs.org), [MDX](https://mdxjs.com), and [shadcn/ui](https://ui.shadcn.com) to create a modern content-focused website.
 
-<a
-  className="block h-[32px] w-full"
-  href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter&project-name=mdx-starter&repository-name=mdx-starter&demo-url=https%3A%2F%2Fmdx.bridger.to"
->
-  <img src="https://vercel.com/button" alt="Deploy with Vercel" />
-</a>
+- View on [GitHub](https://github.com/brijr/mdx-starter)
+- Deploy with [Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter)
 
----
+<div className="my-8">
+  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbrijr%2Fmdx-starter">
+    <img
+      width="103"
+      height="32"
+      src="https://vercel.com/button"
+      alt="Deploy with Vercel"
+    />
+  </a>
+</div>
 
-Welcome to this **Markdown** example document! Markdown allows you to write using an easy-to-read, easy-to-write plain text format, which then converts to structurally valid HTML.
+## Features
 
-## Headers (This is an H2)
+- **Next.js 15+** - Latest features from Next.js
+- **MDX** - Write content using Markdown + React components
+- **Shadcn UI** - Beautiful and accessible components
+- **Dark Mode** - Built-in dark mode support
 
-Headers are created by adding one or more `#` before your header text. The number of `#` you use will determine the size of the header.
+## Markdown Examples
 
-### This is an H3
+### Text Formatting
 
-This is a level 3 heading, which is often used for subsections within a major section or for smaller divisions within a document. It is smaller than the H2 heading but larger than the lower-level headings.
+Regular text looks like this. You can make text **bold** or _italic_.
 
-#### This is an H4
+You can also `highlight code` inline or create code blocks:
 
-This is a level 4 heading, which is commonly used for sub-subsections or smaller divisions within a document. It is smaller than the H3 heading and is typically used for more granular organization of content.
-
-## Emphasis
-
-You can emphasize text with bold or italics.
-
-- **Bold**: `**bold**`
-- _Italics_: `*italics*`
-
-## Lists
-
-### Unordered List
-
-- Item 1
-- Item 2
-  - Subitem 2.1
-  - Subitem 2.2
-
-### Ordered List
-
-1. First item
-2. Second item
-3. Third item
-
-## Links
-
-This is a [link to Google](https://www.google.com).
-
-## Images
-
-![OpenAI Logo](https://openai.com/favicon.ico "OpenAI's Logo")
-
-## Code
-
-You can present code blocks using three backticks ``` or by indenting lines with four spaces.
-
-```python
-def hello_world():
-    print("Hello, Markdown!")
+```typescript
+function greet(name: string) {
+  return `Hello, ${name}!`;
+}
 ```
 
-Inline code can be done with single backticks: `inline code`.
+### Lists
 
-## Blockquotes
+Unordered list:
 
-> Markdown is a lightweight markup language with plain-text formatting syntax. Its design allows it to be converted to many output formats, but the original tool by the same name only supports HTML.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
 
-Thank you for exploring this Markdown starter!
+Ordered list:
+
+1. Install dependencies
+2. Write content
+3. Deploy
+
+### Blockquotes
+
+> MDX combines the simplicity of Markdown with the power of React components.
+
+### Links and Images
+
+- Check out the [GitHub repository](https://github.com/brijr/mdx)
+- Visit [shadcn/ui](https://ui.shadcn.com) for component documentation
+- Learn more about [MDX](https://mdxjs.com)
 
 ---
 
-<ThemeToggle />
+<div className="fixed bottom-6 right-6">
+  <ThemeToggle />
+</div>
