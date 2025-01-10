@@ -67,28 +67,21 @@ const styles = {
       "[&_ul_li]:relative [&_ul_li]:pl-6",
       "[&_ul_li]:before:absolute [&_ul_li]:before:left-1 [&_ul_li]:before:top-[0.6875em] [&_ul_li]:before:h-1.5 [&_ul_li]:before:w-1.5 [&_ul_li]:before:rounded-full [&_ul_li]:before:bg-foreground/80",
       // Ordered lists
-      "[&_ol]:pl-0 [&_ol]:list-none [&_ol]:space-y-2",
-      "[&_ol>li]:relative [&_ol>li]:pl-8",
-      "[&_ol>li]:before:absolute [&_ol>li]:before:left-0 [&_ol>li]:before:text-foreground/80",
-      // First level ordered list
-      "[&_ol]:counter-reset-[list]",
-      "[&_ol>li]:before:content-[counter(list)'.'] [&_ol>li]:counter-increment-[list]",
-      // Second level ordered list
-      "[&_ol_ol]:counter-reset-[list2]",
-      "[&_ol_ol>li]:before:content-[counter(list2,lower-alpha)'.'] [&_ol_ol>li]:counter-increment-[list2]",
-      // Third level ordered list
-      "[&_ol_ol_ol]:counter-reset-[list3]",
-      "[&_ol_ol_ol>li]:before:content-[counter(list3,lower-roman)'.'] [&_ol_ol_ol>li]:counter-increment-[list3]",
+      "[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2",
+      "[&_ol_ol]:list-[lower-alpha] [&_ol_ol]:pl-6",
+      "[&_ol_ol_ol]:list-[lower-roman] [&_ol_ol_ol]:pl-6",
+      // List item styles
+      "[&_li]:pl-2",
+      "[&_ol>li]:marker:text-foreground/80",
       // Nested lists spacing
       "[&_li_ul]:mt-2 [&_li_ol]:mt-2",
       "[&_li_ul]:mb-0 [&_li_ol]:mb-0",
-      "[&_ul_ul]:pl-6 [&_ol_ol]:pl-6",
       // Nested unordered list styles
       "[&_ul_ul_li]:before:bg-foreground/60",
       "[&_ul_ul_ul_li]:before:bg-foreground/40",
       // Task lists
       "[&_li]:has([type=checkbox]):pl-8",
-      "[&_li]:has([type=checkbox]):before:hidden",
+      "[&_li]:has([type=checkbox]):list-none",
       "[&_li_input[type=checkbox]]:absolute [&_li_input[type=checkbox]]:left-0 [&_li_input[type=checkbox]]:top-1 [&_li_input[type=checkbox]]:mt-0.5",
       // Mixed lists
       "[&_ol_ul]:pl-6",
