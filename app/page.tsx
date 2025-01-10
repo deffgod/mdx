@@ -1,12 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-
 import Screenshot from "@/public/screenshot.jpg";
+
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 export default function HomePage() {
   return (
     <main className="w-full h-full flex items-center justify-center">
       <ToDelete />
+      <div className="fixed bottom-6 right-6">
+        <ThemeToggle />
+      </div>
     </main>
   );
 }

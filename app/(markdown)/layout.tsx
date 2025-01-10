@@ -8,9 +8,7 @@ export default function MarkdownLayout({
   return (
     <Craft.Main>
       <Craft.Section>
-        <Craft.Container>
-          <Craft.Prose>{children}</Craft.Prose>
-        </Craft.Container>
+        <Craft.Container>{children}</Craft.Container>
       </Craft.Section>
     </Craft.Main>
   );

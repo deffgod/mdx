@@ -88,22 +88,10 @@ const styles = {
       "[&_ul_ol]:pl-6",
     ],
     code: [
-      // Inline code
-      "[&_:not(pre)>code]:relative [&_:not(pre)>code]:rounded [&_:not(pre)>code]:bg-muted/50 [&_:not(pre)>code]:px-[0.3rem] [&_:not(pre)>code]:py-[0.2rem] [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-sm [&_:not(pre)>code]:font-medium",
-      // Code blocks
-      "[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-[#1a1a1a] [&_pre]:p-4 [&_pre]:my-6",
-      "[&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm [&_pre_code]:font-mono",
+      "[&_code]:relative [&_code]:rounded [&_code]:bg-muted/50 [&_code]:px-[0.3rem] [&_code]:py-[0.2rem] [&_code]:font-mono [&_code]:text-sm [&_code]:font-medium",
+      "[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:bg-muted/50 [&_pre]:p-4 [&_pre]:my-4",
+      "[&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm",
       "[&_pre_code]:block [&_pre_code]:w-full",
-      // Highlighted lines
-      "[&_.highlighted]:bg-[rgba(200,200,255,0.1)] [&_.highlighted]:border-l-2 [&_.highlighted]:border-blue-400 [&_.highlighted]:-mx-4 [&_.highlighted]:px-[calc(1rem-2px)]",
-      // Highlighted words
-      "[&_.word]:bg-[rgba(200,200,255,0.1)] [&_.word]:px-1 [&_.word]:rounded",
-      // Heading anchor links
-      "[&_h1>a.anchor]:ml-2 [&_h2>a.anchor]:ml-2 [&_h3>a.anchor]:ml-2 [&_h4>a.anchor]:ml-2 [&_h5>a.anchor]:ml-2 [&_h6>a.anchor]:ml-2",
-      "[&_h1>a.anchor]:opacity-0 [&_h2>a.anchor]:opacity-0 [&_h3>a.anchor]:opacity-0 [&_h4>a.anchor]:opacity-0 [&_h5>a.anchor]:opacity-0 [&_h6>a.anchor]:opacity-0",
-      "[&_h1:hover>a.anchor]:opacity-100 [&_h2:hover>a.anchor]:opacity-100 [&_h3:hover>a.anchor]:opacity-100 [&_h4:hover>a.anchor]:opacity-100 [&_h5:hover>a.anchor]:opacity-100 [&_h6:hover>a.anchor]:opacity-100",
-      "[&_a.anchor]:transition-opacity [&_a.anchor]:duration-200",
-      "[&_a.anchor]:after:content-['#'] [&_a.anchor]:after:text-blue-400",
     ],
     tables: [
       "[&_table]:w-full [&_table]:my-4 [&_table]:overflow-x-auto [&_table]:rounded-lg [&_table]:border",
@@ -128,6 +116,8 @@ const styles = {
       "[&_summary]:cursor-pointer [&_summary]:font-semibold",
       "[&_kbd]:rounded-md [&_kbd]:border [&_kbd]:bg-muted/50 [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono",
       "[&_mark]:bg-primary/10 [&_mark]:px-1",
+      "[&_::selection]:bg-primary/10",
+      // Footnotes
       "[&_.footnotes]:mt-8 [&_.footnotes]:pt-4 [&_.footnotes]:border-t",
       "[&_.footnotes_ol]:list-decimal [&_.footnotes_ol]:ml-6",
       "[&_.footnote-ref]:text-xs [&_.footnote-ref]:align-super [&_.footnote-ref]:ml-0.5",
