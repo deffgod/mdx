@@ -56,7 +56,7 @@ const ToDelete = () => {
         src={Screenshot}
         alt="MDX Starter Screenshot"
         placeholder="blur"
-        className="my-4 sm:my-8 border rounded-md overflow-hidden"
+        className="my-4 sm:my-8 max-w-[720px] border rounded-md overflow-hidden"
       />
 
       {/* Vercel Deploy */}
