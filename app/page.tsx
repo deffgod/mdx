@@ -54,8 +54,6 @@ const ToDelete = () => {
       {/* Screenshot */}
       <Image
         src={Screenshot}
-        width={720}
-        height={532.13}
         alt="MDX Starter Screenshot"
         placeholder="blur"
         className="my-4 sm:my-8 border rounded-md overflow-hidden"
