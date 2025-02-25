@@ -17,7 +17,7 @@ export default function HomePage() {
 
 const ToDelete = () => {
   return (
-    <section className="p-6 sm:p-12 flex flex-col gap-4 text-center items-center">
+    <section className="p-6 sm:p-12 flex flex-col gap-4 text-center items-center max-w-screen-lg">
       <h1>
         <a
           className="underline underline-offset-2 hover:text-muted-foreground"
@@ -56,7 +56,7 @@ const ToDelete = () => {
         src={Screenshot}
         alt="MDX Starter Screenshot"
         placeholder="blur"
-        className="my-4 sm:my-8 w-full max-w-[720px] border rounded-md overflow-hidden"
+        className="my-4 sm:my-8 border rounded-md"
       />
 
       {/* Vercel Deploy */}
