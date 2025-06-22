@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import { Layout } from "@/components/craft";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
+
 import "./globals.css";
 
 import { cn } from "@/lib/utils";

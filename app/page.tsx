@@ -1,18 +1,60 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 import Screenshot from "@/public/screenshot.jpg";
-
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import DocumentationHub from "@/components/documentation-hub";
+import GamingAppMobile from "@/components/gaming-app-mobile";
+import { Entropy } from "@/components/entropy";
+import { FlipLinks } from "@/components/flip-links";
+import { FlowingMenu } from "@/components/flowing-menu";
+import { TextPressure } from "@/components/interactive-text-pressure";
+
+const MenuDemoItems = [
+  { link: '/protocol', text: 'Protocol', image: 'https://picsum.photos/seed/picsum2/600/400' },
+  { link: '/research', text: 'Research', image: 'https://picsum.photos/seed/picsum3/600/400' },
+  { link: '/casino', text: 'Games', image: 'https://picsum.photos/seed/picsum1/600/400' },
+  { link: '/docs', text: 'Docs', image: 'https://picsum.photos/seed/picsum1/600/400' },
+  { link: '/about', text: 'About Us', image: 'https://picsum.photos/seed/picsum4/600/400' },
+];
+
 
 export default function HomePage() {
   return (
     <main className="w-full h-full flex items-center justify-center">
-      <ToDelete />
-      <div className="fixed bottom-6 right-6">
-        <ThemeToggle />
+     
+    <div className="min-h-screen bg-black">
+      <div className="container mx-auto p-2">
+        <div className="text-center mb-2">
+          <div className="flex flex-col items-center justify-center bg-black text-white min-h-screen w-full p-2">
+          <div className="flex flex-col items-center justify-center">
+          <TextPressure className="rounded-lg m-2" />
+          <h1 className="text-4xl font-bold text-white mb-6">
+           PROTOCOL
+        </h1> ß
+        <div className="flex flex-col items-center">
+        </div>
+        <div className="flex flex-col items-center">
+        <Entropy className="rounded-lg" />
+        </div>
+        <div className="flex flex-col items-center">        </div>
+        <div className="flex flex-col items-center">
+          </div>
+        </div>
+        
+        </div>
       </div>
+      </div>
+      
+      <div className="text-center">
+              <div className="space-y-4 font-mono text-[12px] leading-relaxed">
+                <p className=" text-gray-400/80 p-6">This is a research project. Not intended for investment or profit. Use at your own risk. 
+                  Developers are not responsible for any consequences.</p>
+              </div>
+            </div>
+    </div>
     </main>
-  );
+  )
 }
 
 const ToDelete = () => {
