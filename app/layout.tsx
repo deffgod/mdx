@@ -3,7 +3,6 @@ import { Inter as FontSans } from "next/font/google";
 import { Layout } from "@/components/craft";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
-
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
@@ -14,9 +13,9 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "MDX Starter Template for Building Websites",
+  title: "Paragame",
   description:
-    "MDX and Next.js Starter made by Bridger Tower at 9d8 and WIP / AC",
+    "Paragame is a platform for building decentralized applications.",
 };
 
 export default function RootLayout({
@@ -25,6 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <html lang="en" suppressHydrationWarning>
     <Layout>
       <body
         className={cn(
@@ -42,5 +42,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </Layout>
+    </html>
   );
 }

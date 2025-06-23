@@ -1,0 +1,77 @@
+import { Meta } from "@/components/mdx/meta";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Overview from "@/components/cards/overview";
+export const metadata = {
+  title: "ParaGame Protocol: Documentation",
+  description: "A showcase of ParaGame Protocol's documentation",
+  date: "2025-06-24",
+  author: "Bridger",
+  tags: ["documentation", "paraGame", "protocol"],
+};
+
+# PROTOCOL UI Library
+
+Welcome to the **PROTOCOL UI Library** - a comprehensive collection of modern, animated, and highly interactive React components built with **Framer Motion**, **Tailwind CSS**, and **TypeScript**.
+
+## Overview
+
+This library contains over **45+ meticulously crafted components** organized into logical categories:
+
+- 🎨 **Animations** - Dynamic text effects, counters, cursors, and interactive elements
+- 🃏 **Cards** - Beautiful card layouts with hover effects and modal interactions  
+- 📝 **Inputs** - Advanced form inputs with validation and visual feedback
+- 🎯 **Buttons** - Animated buttons with particle effects and loading states
+- 🔧 **Hooks** - Utility hooks for common UI patterns
+
+## Key Features
+
+- ✨ **Modern Animations** - Powered by Framer Motion for smooth, performant animations
+- 🎨 **Beautiful Design** - Clean, modern aesthetic with attention to detail
+- 📱 **Mobile First** - Responsive design that works on all devices
+- 🌙 **Dark Mode** - Built-in theme switching support
+- 🔧 **TypeScript** - Full type safety and excellent developer experience
+- 🚀 **Performance** - Optimized for speed and minimal bundle size
+
+## Quick Start
+
+```tsx
+import { AnimateText, Counter } from '@/components/animations';
+import { Calendar } from '@/components/cards';
+import { GoogleInput } from '@/components/inputs';
+
+export default function Example() {
+  return (
+    <div className="space-y-8">
+      <AnimateText words={["Welcome", "to", "PROTOCOL"]} />
+      <Counter min={0} max={100} initial={25} />
+      <Calendar />
+      <GoogleInput label="Enter your email" type="email" />
+    </div>
+  );
+}
+```
+
+## Architecture
+
+The library is built with modern React patterns:
+
+- **Functional Components** with hooks
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Custom Hooks** for reusable logic
+
+## Getting Started
+
+Choose a category from the sidebar to explore components, or jump straight to:
+
+- [Components Overview](/docs/components) - Browse all available components
+- [Hooks](/docs/hooks) - Utility hooks for common patterns
+- [Examples](/docs/examples) - Real-world usage examples
+
+
+
+---
+
+*Built with ❤️ for ParaGame Protocol by PrizmDevs*

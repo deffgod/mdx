@@ -1,0 +1,302 @@
+# Custom Hooks
+
+A collection of utility hooks for common UI patterns and interactions.
+
+## Available Hooks
+
+### useMounted
+
+Hook for checking if a component is mounted, useful for avoiding hydration issues with SSR.
+
+```tsx
+import { useMounted } from '@/lib/hooks'
+
+export default function Component() {
+  const mounted = useMounted()
+  
+  if (!mounted) {
+    return <div>Loading...</div>
+  }
+  
+  return <div>Component is mounted!</div>
+}
+```
+
+**Use Cases:**
+- Preventing hydration mismatches
+- Conditional client-side only rendering
+- Theme detection after mount
+
+---
+
+### useMediaQuery
+
+Hook for responsive design that listens to CSS media queries.
+
+```tsx
+import { useMediaQuery } from '@/lib/hooks'
+
+export default function ResponsiveComponent() {
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+  
+  return (
+    <div>
+      {isMobile ? 'Mobile View' : 'Desktop View'}
+      {isDarkMode && 'Dark mode detected'}
+    </div>
+  )
+}
+```
+
+**Parameters:**
+- `query` (string): CSS media query string
+
+**Returns:** Boolean indicating if the query matches
+
+**Use Cases:**
+- Responsive component behavior
+- Conditional rendering based on screen size
+- Detecting user preferences
+
+---
+
+### useMousePosition
+
+Hook for cursor tracking and interactions within elements.
+
+```tsx
+import { useMousePosition } from '@/lib/hooks'
+
+export default function MouseTracker() {
+  const { x, y, elementX, elementY } = useMousePosition()
+  
+  return (
+    <div className="relative h-64 border">
+      <div 
+        className="absolute w-4 h-4 bg-blue-500 rounded-full pointer-events-none"
+        style={{
+          left: elementX - 8,
+          top: elementY - 8,
+        }}
+      />
+      <p>Global: {x}, {y}</p>
+      <p>Element: {elementX}, {elementY}</p>
+    </div>
+  )
+}
+```
+
+**Returns:**
+- `x, y`: Global mouse coordinates
+- `elementX, elementY`: Mouse coordinates relative to the tracked element
+
+**Use Cases:**
+- Custom cursor effects
+- Magnetic hover interactions
+- Parallax effects
+
+---
+
+### useLockBody
+
+Hook for locking body scroll, useful for modals and dialogs.
+
+```tsx
+import { useLockBody } from '@/lib/hooks'
+import { useState } from 'react'
+
+export default function Modal() {
+  const [isOpen, setIsOpen] = useState(false)
+  
+  // Lock body scroll when modal is open
+  useLockBody(isOpen)
+  
+  if (!isOpen) {
+    return <button onClick={() => setIsOpen(true)}>Open Modal</button>
+  }
+  
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg">
+        <h2>Modal Content</h2>
+        <button onClick={() => setIsOpen(false)}>Close</button>
+      </div>
+    </div>
+  )
+}
+```
+
+**Parameters:**
+- `lock` (boolean): Whether to lock the body scroll
+
+**Use Cases:**
+- Modal dialogs
+- Side panels
+- Full-screen overlays
+
+---
+
+### useClickOutside
+
+Hook for detecting clicks outside elements, perfect for closing dropdowns/modals.
+
+```tsx
+import { useClickOutside } from '@/lib/hooks'
+import { useRef, useState } from 'react'
+
+export default function Dropdown() {
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  
+  useClickOutside(dropdownRef, () => {
+    setIsOpen(false)
+  })
+  
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button onClick={() => setIsOpen(!isOpen)}>
+        Toggle Dropdown
+      </button>
+      
+      {isOpen && (
+        <div className="absolute top-full left-0 bg-white border rounded-lg shadow-lg">
+          <div className="p-4">Dropdown content</div>
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+**Parameters:**
+- `ref`: React ref to the element to monitor
+- `handler`: Function to call when clicking outside
+
+**Use Cases:**
+- Dropdown menus
+- Context menus
+- Tooltip dismissal
+
+## Usage Patterns
+
+### Combined Hooks
+
+```tsx
+import { useMounted, useMediaQuery, useClickOutside } from '@/lib/hooks'
+
+export default function AdvancedComponent() {
+  const mounted = useMounted()
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const [showMenu, setShowMenu] = useState(false)
+  const menuRef = useRef(null)
+  
+  useClickOutside(menuRef, () => setShowMenu(false))
+  
+  if (!mounted) return null
+  
+  return (
+    <div>
+      {isMobile ? (
+        // Mobile menu
+        <div ref={menuRef}>
+          <button onClick={() => setShowMenu(!showMenu)}>Menu</button>
+          {showMenu && <MobileMenu />}
+        </div>
+      ) : (
+        // Desktop menu
+        <DesktopMenu />
+      )}
+    </div>
+  )
+}
+```
+
+### Custom Hook Composition
+
+```tsx
+// Create your own composite hooks
+import { useMounted, useMediaQuery } from '@/lib/hooks'
+
+export function useResponsiveMount() {
+  const mounted = useMounted()
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const isTablet = useMediaQuery('(max-width: 1024px)')
+  
+  return {
+    mounted,
+    isMobile: mounted && isMobile,
+    isTablet: mounted && isTablet,
+    isDesktop: mounted && !isTablet,
+  }
+}
+```
+
+## Hook Guidelines
+
+### 1. Performance
+- Hooks are optimized for performance
+- Use dependency arrays where appropriate
+- Clean up event listeners automatically
+
+### 2. TypeScript
+- Full TypeScript support
+- Proper type inference
+- Generic type parameters where applicable
+
+### 3. SSR Compatibility
+- `useMounted` helps with hydration issues
+- All hooks work with Next.js SSR
+- Proper cleanup on unmount
+
+### 4. Testing
+```tsx
+// Hooks are testable with React Testing Library
+import { renderHook } from '@testing-library/react'
+import { useMounted } from '@/lib/hooks'
+
+test('useMounted returns false initially', () => {
+  const { result } = renderHook(() => useMounted())
+  expect(result.current).toBe(false)
+})
+```
+
+## Best Practices
+
+### 1. Conditional Effects
+```tsx
+// ✅ Good - conditional effects
+const mounted = useMounted()
+
+useEffect(() => {
+  if (!mounted) return
+  // Client-side only code
+}, [mounted])
+```
+
+### 2. Cleanup
+```tsx
+// ✅ Good - automatic cleanup
+useClickOutside(ref, handler) // Automatically removes listeners on unmount
+```
+
+### 3. Memoization
+```tsx
+// ✅ Good - memoized handlers
+const handleClickOutside = useCallback(() => {
+  setIsOpen(false)
+}, [])
+
+useClickOutside(ref, handleClickOutside)
+```
+
+### 4. Error Handling
+```tsx
+// ✅ Good - error boundaries
+try {
+  const { x, y } = useMousePosition()
+  // Use coordinates
+} catch (error) {
+  // Handle error
+}
+```

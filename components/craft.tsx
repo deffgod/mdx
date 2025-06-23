@@ -26,7 +26,7 @@ interface HTMLProps {
 type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>;
 
 // Available breakpoints
-type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
+type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | "10xl";
 
 // Box-specific props
 interface BoxProps extends BaseProps {

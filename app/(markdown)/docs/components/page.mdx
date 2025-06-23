@@ -1,0 +1,158 @@
+# Components Overview
+
+The PROTOCOL UI Library includes **45+ carefully crafted components** organized into logical categories. Each component is built with modern React patterns, TypeScript, and Framer Motion for smooth animations.
+
+## Categories
+
+### 🎨 Animations
+Dynamic and interactive components that bring your UI to life.
+
+| Component | Description | Key Features |
+|-----------|-------------|--------------|
+| **AnimateText** | Cycling text animation with visual indicators | Multiple animation modes, customizable timing |
+| **Counter** | Animated number counter with controls | Increment/decrement, smooth transitions |
+| **Cursor** | Custom cursor with magnetic effects | Hover interactions, smooth following |
+| **Dropdown** | Animated navigation dropdown | Smooth expand/collapse, keyboard navigation |
+| **Magnet** | Magnetic hover effect wrapper | Customizable attraction strength |
+| **Slider** | Interactive animated slider | Touch/drag support, smooth transitions |
+
+[View Animation Components →](/docs/components/animations)
+
+### 🃏 Cards
+Beautiful card layouts with hover effects and modal interactions.
+
+| Component | Description | Key Features |
+|-----------|-------------|--------------|
+| **Calendar** | Interactive calendar widget | Month navigation, date selection, animations |
+| **Linear** | Card layout system with modals | Grid/list view toggle, expandable details |
+| **Overview** | App store-style card overview | Hover effects, modal interactions |
+
+[View Card Components →](/docs/components/cards)
+
+### 📝 Inputs
+Advanced form inputs with validation and visual feedback.
+
+| Component | Description | Key Features |
+|-----------|-------------|--------------|
+| **GoogleInput** | Google-style floating label input | Floating labels, focus animations |
+| **PasswordStrength** | Password input with strength meter | Real-time validation, visual feedback |
+| **Verifier** | Password confirmation field | Match validation, visual indicators |
+
+[View Input Components →](/docs/components/inputs)
+
+### 🎯 Buttons
+Interactive buttons with animations and loading states.
+
+| Component | Description | Key Features |
+|-----------|-------------|--------------|
+| **Sparkles** | Button with particle effects | Animated sparkles, hover interactions |
+| **StatusButton** | Button with loading/success states | State management, visual feedback |
+| **GitHub** | GitHub-style button with arrow | Hover animations, icon transitions |
+
+[View Button Components →](/docs/components/buttons)
+
+## Design Principles
+
+### 🎨 **Visual Consistency**
+All components follow a consistent design language with:
+- Unified color palette
+- Consistent spacing and typography
+- Smooth animations and transitions
+
+### 📱 **Mobile First**
+Every component is designed with mobile devices in mind:
+- Touch-friendly interactions
+- Responsive layouts
+- Optimized performance
+
+### ♿ **Accessibility**
+Built with accessibility best practices:
+- Proper ARIA labels
+- Keyboard navigation support
+- Screen reader friendly
+
+### 🔧 **Developer Experience**
+Optimized for developers:
+- Full TypeScript support
+- Comprehensive prop interfaces
+- Clear component APIs
+
+## Usage Patterns
+
+### Basic Import
+```tsx
+import { AnimateText } from '@/components/animations'
+import { Calendar } from '@/components/cards'
+```
+
+### Category Import
+```tsx
+import { AnimateText, Counter, Cursor } from '@/components/animations'
+```
+
+### Component Composition
+```tsx
+export default function Dashboard() {
+  return (
+    <div className="space-y-6">
+      <AnimateText words={["Welcome", "to", "Dashboard"]} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Calendar />
+        <Counter min={0} max={1000} initial={250} />
+      </div>
+    </div>
+  )
+}
+```
+
+## Customization
+
+### Theme Integration
+All components respect your theme configuration:
+
+```tsx
+// Components automatically adapt to light/dark mode
+<AnimateText 
+  words={["Light", "Dark", "Mode"]}
+  className="text-foreground" // Uses theme colors
+/>
+```
+
+### Custom Styling
+Components accept custom classes for easy customization:
+
+```tsx
+<Counter 
+  className="bg-primary text-primary-foreground rounded-lg p-4"
+  min={0} 
+  max={100} 
+/>
+```
+
+## Performance
+
+### Optimized Animations
+- Hardware acceleration with `transform` and `opacity`
+- Proper animation cleanup
+- Minimal reflows and repaints
+
+### Bundle Size
+- Tree-shakeable exports
+- Minimal dependencies
+- Optimized for production builds
+
+## Browser Support
+
+- **Chrome** 88+
+- **Firefox** 85+
+- **Safari** 14+
+- **Edge** 88+
+
+## Next Steps
+
+Explore specific component categories:
+
+- [Animations →](/docs/components/animations)
+- [Cards →](/docs/components/cards)  
+- [Inputs →](/docs/components/inputs)
+- [Buttons →](/docs/components/buttons)

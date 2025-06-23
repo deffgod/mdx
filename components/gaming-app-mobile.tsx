@@ -24,6 +24,14 @@ interface GameState {
     lossStreak: number;
     bestMultiplier: number;
   };
+  games: {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    link: string;
+  }[];
+  gameData: any;
 }
 
 // Game state reducer for better state management
@@ -1001,6 +1009,8 @@ const RouletteGame: React.FC<{
     </div>
   );
 });
+
+RouletteGame.displayName = 'RouletteGame';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'games' | 'dashboard' | 'history' | 'research'>('games');

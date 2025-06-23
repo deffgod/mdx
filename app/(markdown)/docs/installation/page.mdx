@@ -1,0 +1,204 @@
+# Installation
+
+Get started with the PROTOCOL UI Library in your Next.js project.
+
+## Prerequisites
+
+- **Node.js** 18.0 or higher
+- **React** 18.0 or higher
+- **Next.js** 13.0 or higher
+- **TypeScript** (recommended)
+
+## Dependencies
+
+The library requires these peer dependencies:
+
+```bash
+npm install framer-motion lucide-react tailwindcss next-themes
+# or
+pnpm add framer-motion lucide-react tailwindcss next-themes
+# or  
+yarn add framer-motion lucide-react tailwindcss next-themes
+```
+
+## Setup
+
+### 1. Install Dependencies
+
+Make sure you have all required dependencies installed:
+
+```json
+{
+  "dependencies": {
+    "framer-motion": "^12.18.1",
+    "lucide-react": "^0.468.0",
+    "next-themes": "^0.4.4",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  }
+}
+```
+
+### 2. Tailwind Configuration
+
+Add the necessary configuration to your `tailwind.config.js`:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'bounce-gentle': 'bounceGentle 2s infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceGentle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+      },
+    },
+  },
+  plugins: [require('tailwindcss-animate')],
+}
+```
+
+### 3. Theme Provider Setup
+
+Add the theme provider to your app layout:
+
+```tsx
+// app/layout.tsx
+import { ThemeProvider } from 'next-themes'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+### 4. Utils Configuration
+
+Create a `lib/utils.ts` file:
+
+```tsx
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+## Component Structure
+
+The library is organized into the following structure:
+
+```
+components/
+├── animations/          # Dynamic animations and effects
+│   ├── animate-text.tsx
+│   ├── counter.tsx
+│   ├── cursor.tsx
+│   └── ...
+├── cards/              # Card layouts and containers
+│   ├── calendar.tsx
+│   ├── overview.tsx
+│   └── ...
+├── inputs/             # Form inputs and controls
+│   ├── google.tsx
+│   ├── password-strength.tsx
+│   └── ...
+├── buttons/            # Interactive buttons
+│   ├── sparkles.tsx
+│   ├── status-button.tsx
+│   └── ...
+└── shared/             # Shared utilities
+    ├── icons.tsx
+    └── mode-toggle.tsx
+
+lib/hooks/              # Custom React hooks
+├── use-mounted.ts
+├── use-media-query.ts
+└── ...
+```
+
+## TypeScript Configuration
+
+Ensure your `tsconfig.json` includes path mapping:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/lib/*": ["./lib/*"]
+    }
+  }
+}
+```
+
+## Usage
+
+Once installed, you can import and use components:
+
+```tsx
+import { AnimateText } from '@/components/animations'
+import { Calendar } from '@/components/cards'
+import { useMounted } from '@/lib/hooks'
+
+export default function MyPage() {
+  const mounted = useMounted()
+  
+  if (!mounted) return null
+  
+  return (
+    <div>
+      <AnimateText words={["Hello", "World"]} />
+      <Calendar />
+    </div>
+  )
+}
+```
+
+## Next Steps
+
+- Explore [Components](/docs/components) to see all available components
+- Check out [Hooks](/docs/hooks) for utility hooks
+- View [Examples](/docs/examples) for real-world usage patterns

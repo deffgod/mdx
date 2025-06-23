@@ -1,0 +1,286 @@
+import { Calendar } from '@/components/cards/calendar'
+
+# Card Components
+
+Beautiful card layouts with hover effects and modal interactions.
+
+## Calendar
+
+Interactive calendar widget with month navigation and smooth animations.
+
+### Preview
+
+<div className="my-8 p-6 border rounded-lg bg-gradient-to-br from-background to-muted/20">
+  <div className="max-w-sm mx-auto">
+    <Calendar />
+  </div>
+</div>
+
+### Usage
+
+```tsx
+import { Calendar } from '@/components/cards'
+
+export default function Example() {
+  return (
+    <div className="max-w-sm">
+      <Calendar 
+        onDateSelect={(date) => console.log('Selected:', date)}
+      />
+    </div>
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | `""` | Additional CSS classes |
+| `onDateSelect` | `(date: Date) => void` | `undefined` | Date selection callback |
+| `initialDate` | `Date` | `new Date()` | Initial selected date |
+
+### Features
+
+- 📅 Month navigation with smooth transitions
+- 🎯 Date selection with visual feedback
+- 🎨 Hover effects and animations
+- 📱 Touch-friendly interface
+- 🌙 Dark mode support
+
+---
+
+## Overview
+
+App store-style card overview with expandable modals.
+
+### Usage
+
+```tsx
+import { Overview } from '@/components/cards'
+
+const apps = [
+  {
+    id: 1,
+    name: 'Design App',
+    category: 'Productivity',
+    color: 'bg-blue-500',
+    description: 'Professional design tools'
+  },
+  {
+    id: 2,
+    name: 'Music Player',
+    category: 'Entertainment', 
+    color: 'bg-purple-500',
+    description: 'Stream your favorite music'
+  }
+]
+
+export default function Example() {
+  return (
+    <Overview apps={apps} />
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `apps` | `App[]` | `[]` | Array of app objects |
+| `className` | `string` | `""` | Additional CSS classes |
+| `onAppSelect` | `(app: App) => void` | `undefined` | App selection callback |
+
+---
+
+## Linear
+
+Card layout system with modal interactions and view switching.
+
+### Usage
+
+```tsx
+import { Linear } from '@/components/cards'
+
+const items = [
+  {
+    id: 1,
+    title: 'Task Management',
+    description: 'Organize your workflow',
+    status: 'active',
+    priority: 'high'
+  },
+  {
+    id: 2,
+    title: 'Team Collaboration',
+    description: 'Work together seamlessly',
+    status: 'pending',
+    priority: 'medium'
+  }
+]
+
+export default function Example() {
+  return (
+    <Linear 
+      items={items}
+      viewMode="grid" // or "list"
+    />
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `Item[]` | `[]` | Array of item objects |
+| `viewMode` | `'grid' \| 'list'` | `'grid'` | Display mode |
+| `className` | `string` | `""` | Additional CSS classes |
+| `onItemClick` | `(item: Item) => void` | `undefined` | Item click callback |
+
+## Design Patterns
+
+### Card Layouts
+
+Cards follow consistent design patterns:
+
+```tsx
+// Basic card structure
+<div className="bg-card border rounded-lg p-6 hover:shadow-lg transition-shadow">
+  <h3 className="font-semibold mb-2">Card Title</h3>
+  <p className="text-muted-foreground">Card description</p>
+</div>
+```
+
+### Interactive States
+
+Cards support multiple interactive states:
+
+- **Default**: Base appearance
+- **Hover**: Elevated shadow, subtle scale
+- **Active**: Pressed state with reduced scale
+- **Selected**: Highlighted border or background
+
+### Animation Guidelines
+
+Cards use consistent animation patterns:
+
+```tsx
+// Hover animations
+className="transform transition-all duration-200 hover:scale-105 hover:shadow-lg"
+
+// Loading states
+className="animate-pulse bg-muted"
+
+// Enter animations
+initial={{ opacity: 0, y: 20 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.3 }}
+```
+
+## Accessibility
+
+All card components include:
+
+- **Keyboard Navigation**: Tab through interactive elements
+- **ARIA Labels**: Proper labeling for screen readers
+- **Focus Indicators**: Clear focus states
+- **Semantic HTML**: Proper heading hierarchy
+
+```tsx
+// Accessible card example
+<div 
+  role="button"
+  tabIndex={0}
+  aria-label="Open task details"
+  onKeyDown={handleKeyDown}
+  className="focus:ring-2 focus:ring-primary focus:outline-none"
+>
+  <h3 id="card-title">Task Title</h3>
+  <p aria-describedby="card-title">Task description</p>
+</div>
+```
+
+## Customization
+
+### Theme Integration
+
+Cards automatically adapt to your theme:
+
+```tsx
+// Light/dark mode support
+<div className="bg-card text-card-foreground border-border">
+  {/* Card content */}
+</div>
+```
+
+### Custom Styling
+
+Override default styles with custom classes:
+
+```tsx
+<Calendar 
+  className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-2 border-blue-200 dark:border-blue-800"
+/>
+```
+
+### Motion Variants
+
+Customize animations with Framer Motion:
+
+```tsx
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1 },
+  hover: { scale: 1.05, y: -5 }
+}
+
+<motion.div
+  variants={cardVariants}
+  initial="hidden"
+  animate="visible"
+  whileHover="hover"
+>
+  {/* Card content */}
+</motion.div>
+```
+
+## Best Practices
+
+### 1. Performance
+- Use `memo()` for cards that receive stable props
+- Implement virtual scrolling for large lists
+- Optimize images with Next.js Image component
+
+### 2. Responsive Design
+```tsx
+// Responsive grid
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {cards.map(card => <Card key={card.id} {...card} />)}
+</div>
+```
+
+### 3. Loading States
+```tsx
+// Loading skeleton
+function CardSkeleton() {
+  return (
+    <div className="bg-card border rounded-lg p-6 animate-pulse">
+      <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+      <div className="h-3 bg-muted rounded w-1/2"></div>
+    </div>
+  )
+}
+```
+
+### 4. Error Handling
+```tsx
+// Error boundary for cards
+function CardWithErrorBoundary({ children }) {
+  return (
+    <ErrorBoundary fallback={<CardErrorState />}>
+      {children}
+    </ErrorBoundary>
+  )
+}
+```

@@ -1,0 +1,304 @@
+import DemoShowcase from '@/components/demo-showcase'
+
+import { AnimateText, Counter } from '@/components/animations'
+import { Calendar } from '@/components/cards'
+import { ThemeSwitcher } from '@/components/shared'
+import { LinearCards } from '@/components/cards'
+import { Dashboard } from '@/components/dashboard'
+import { Box } from '@/components/craft'
+
+
+
+
+# Interactive Examples
+
+Explore and interact with all components from the PROTOCOL UI Library in real-time.
+
+<DemoShowcase />
+
+
+## Code Examples
+
+### Dashboard Layout
+
+
+<Box className="flex flex-col items-center justify-center">
+  <LinearCards cards={<LinearCards />} />
+  <LinearCards cards={<LinearCards />} />
+  <LinearCards cards={<LinearCards />} />
+</Box>
+
+
+```tsx
+import { AnimateText, Counter } from '@/components/animations'
+import { Calendar } from '@/components/cards'
+import { ThemeSwitcher } from '@/components/shared'
+
+
+export default function Dashboard() {
+  return (
+    <div className="min-h-screen bg-background p-6">
+      <header className="flex justify-between items-center mb-8">
+        <AnimateText words={["Dashboard", "Analytics", "Overview"]} />
+        <ThemeSwitcher />
+      </header>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="bg-card p-6 rounded-lg border">
+          <h3 className="text-lg font-semibold mb-4">Total Users</h3>
+          <Counter min={0} max={10000} initial={8547} />
+        </div>
+        
+        <div className="bg-card p-6 rounded-lg border">
+          <h3 className="text-lg font-semibold mb-4">Calendar</h3>
+          <Calendar />
+        </div>
+        
+        <div className="bg-card p-6 rounded-lg border">
+          <h3 className="text-lg font-semibold mb-4">Linear Cards</h3>
+          <LinearCards />
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+### Authentication Form
+
+```tsx
+import { GoogleInput, PasswordStrength } from '@/components/inputs'
+import { StatusButton } from '@/components/buttons'
+import { useState } from 'react'
+
+export default function AuthForm() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-card rounded-lg border">
+      <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+      
+      <form className="space-y-6">
+        <GoogleInput
+          label="Email Address"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+        />
+        
+        <PasswordStrength
+          value={formData.password}
+          onChange={(value) => setFormData(prev => ({ ...prev, password: value }))}
+        />
+        
+        <StatusButton className="w-full">
+          Create Account
+        </StatusButton>
+      </form>
+    </div>
+  )
+}
+```
+
+### Landing Page Hero
+
+```tsx
+import { AnimateText } from '@/components/animations'
+import { Sparkles } from '@/components/buttons'
+import { Cursor } from '@/components/animations'
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/20">
+      <Cursor />
+      
+      <div className="text-center space-y-8">
+        <AnimateText 
+          words={["Welcome", "to", "the", "Future"]}
+          className="text-6xl font-bold"
+        />
+        
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Experience the next generation of UI components with smooth animations
+          and modern design patterns.
+        </p>
+        
+        <div className="flex gap-4 justify-center">
+          <Sparkles>
+            Get Started
+          </Sparkles>
+          
+          <button className="px-6 py-3 border rounded-lg hover:bg-muted transition-colors">
+            Learn More
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
+```
+
+### Interactive Carousel
+
+```tsx
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Magnet } from '@/components/animations'
+
+const slides = [
+  { id: 1, title: 'Slide 1', content: 'First slide content' },
+  { id: 2, title: 'Slide 2', content: 'Second slide content' },
+  { id: 3, title: 'Slide 3', content: 'Third slide content' },
+]
+
+export default function Carousel() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  }
+
+  return (
+    <div className="relative w-full max-w-2xl mx-auto">
+      <div className="relative h-64 overflow-hidden rounded-lg bg-card border">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 flex items-center justify-center p-8"
+          >
+            <div className="text-center">
+              <h3 className="text-2xl font-bold mb-4">{slides[currentSlide].title}</h3>
+              <p className="text-muted-foreground">{slides[currentSlide].content}</p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="flex justify-between mt-4">
+        <Magnet>
+          <button 
+            onClick={prevSlide}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg"
+          >
+            Previous
+          </button>
+        </Magnet>
+        
+        <Magnet>
+          <button 
+            onClick={nextSlide}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg"
+          >
+            Next
+          </button>
+        </Magnet>
+      </div>
+    </div>
+  )
+}
+```
+
+## Best Practices
+
+### 1. Component Composition
+Combine multiple components to create complex UIs:
+
+```tsx
+// ✅ Good - composing multiple components
+<div className="space-y-6">
+  <AnimateText words={["Loading", "Content"]} />
+  <Counter min={0} max={100} initial={0} />
+  <StatusButton>Complete</StatusButton>
+</div>
+```
+
+### 2. Theme Integration
+Use theme-aware styling:
+
+```tsx
+// ✅ Good - using theme colors
+<GoogleInput 
+  className="bg-background border-border text-foreground"
+  label="Username"
+/>
+```
+
+### 3. Performance Optimization
+Minimize re-renders with proper state management:
+
+```tsx
+// ✅ Good - memoized component
+import { memo } from 'react'
+
+const OptimizedComponent = memo(({ data }) => {
+  return <AnimateText words={data.words} />
+})
+```
+
+### 4. Accessibility
+Always include proper accessibility attributes:
+
+```tsx
+// ✅ Good - accessible component
+<StatusButton
+  aria-label="Submit form"
+  role="button"
+>
+  Submit
+</StatusButton>
+```
+
+## Integration Tips
+
+### State Management
+```tsx
+// Using with state management libraries
+import { useStore } from '@/store'
+
+export default function Component() {
+  const { count, increment } = useStore()
+  
+  return (
+    <div>
+      <Counter value={count} onChange={increment} />
+    </div>
+  )
+}
+```
+
+### Form Integration
+```tsx
+// Using with react-hook-form
+import { useForm } from 'react-hook-form'
+
+export default function Form() {
+  const { register, handleSubmit } = useForm()
+  
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <GoogleInput 
+        {...register('email')}
+        label="Email"
+      />
+    </form>
+  )
+}
+```
+
+## Performance Considerations
+
+- Use `memo()` for components that receive stable props
+- Implement proper `useCallback()` and `useMemo()` where needed
+- Consider code splitting for large component collections
+- Optimize animations with `transform` and `opacity` properties

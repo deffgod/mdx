@@ -7,16 +7,22 @@ import DocumentationHub from "@/components/documentation-hub";
 import GamingAppMobile from "@/components/gaming-app-mobile";
 import { Entropy } from "@/components/entropy";
 import { FlipLinks } from "@/components/flip-links";
-import { FlowingMenu } from "@/components/flowing-menu";
+import FlowingMenu from "@/components/flowing-menu";
 import { TextPressure } from "@/components/interactive-text-pressure";
+import Overview from "@/components/cards/overview";
+import { Button } from "@/components/ui/button";
+import AnimateText from "@/components/animations/animate-text";
 
-const MenuDemoItems = [
+
+const MenuItems = [
   { link: '/protocol', text: 'Protocol', image: 'https://picsum.photos/seed/picsum2/600/400' },
   { link: '/research', text: 'Research', image: 'https://picsum.photos/seed/picsum3/600/400' },
-  { link: '/casino', text: 'Games', image: 'https://picsum.photos/seed/picsum1/600/400' },
+  { link: '/games', text: 'Games', image: 'https://picsum.photos/seed/picsum1/600/400' },
   { link: '/docs', text: 'Docs', image: 'https://picsum.photos/seed/picsum1/600/400' },
   { link: '/about', text: 'About Us', image: 'https://picsum.photos/seed/picsum4/600/400' },
+  { link: '/docs/examples', text: 'Examples', image: 'https://picsum.photos/seed/picsum5/600/400' }
 ];
+
 
 
 export default function HomePage() {
@@ -31,7 +37,7 @@ export default function HomePage() {
           <TextPressure className="rounded-lg m-2" />
           <h1 className="text-4xl font-bold text-white mb-6">
            PROTOCOL
-        </h1> ß
+        </h1> 
         <div className="flex flex-col items-center">
         </div>
         <div className="flex flex-col items-center">
@@ -40,7 +46,9 @@ export default function HomePage() {
         <div className="flex flex-col items-center">        </div>
         <div className="flex flex-col items-center">
           </div>
-        </div>
+        </div> 
+        <FlowingMenu items={MenuItems} />
+        
         
         </div>
       </div>

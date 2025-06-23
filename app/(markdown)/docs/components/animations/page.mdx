@@ -1,0 +1,287 @@
+import { AnimateText } from '@/components/animations/animate-text'
+import { Counter } from '@/components/animations/counter'
+import { Cursor } from '@/components/animations/cursor'
+
+# Animation Components
+
+Bring your UI to life with smooth, performant animations powered by Framer Motion.
+
+## AnimateText
+
+Dynamic text animation that cycles through words with visual indicators.
+
+### Preview
+
+<div className="my-8 p-6 border rounded-lg">
+  <AnimateText words={["Dynamic", "Animated", "Text", "Component"]} />
+</div>
+
+### Usage
+
+```tsx
+import { AnimateText } from '@/components/animations'
+
+export default function Example() {
+  return (
+    <AnimateText 
+      words={["Hello", "World", "Welcome"]} 
+      className="text-2xl font-bold"
+    />
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `words` | `string[]` | - | Array of words to cycle through |
+| `className` | `string` | `""` | Additional CSS classes |
+| `duration` | `number` | `2000` | Duration for each word (ms) |
+
+### Features
+
+- ✨ Smooth word transitions
+- 🎯 Visual progress indicator
+- 🎨 Customizable styling
+- ⚡ Performance optimized
+
+---
+
+## Counter
+
+Animated number counter with increment/decrement controls.
+
+### Preview
+
+<div className="my-8 p-6 border rounded-lg">
+  <div className="flex justify-center">
+    <Counter min={0} max={100} initial={42} />
+  </div>
+</div>
+
+### Usage
+
+```tsx
+import { Counter } from '@/components/animations'
+
+export default function Example() {
+  return (
+    <Counter 
+      min={0} 
+      max={1000} 
+      initial={250}
+      step={5}
+    />
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `min` | `number` | `0` | Minimum value |
+| `max` | `number` | `100` | Maximum value |
+| `initial` | `number` | `0` | Initial value |
+| `step` | `number` | `1` | Increment/decrement step |
+| `className` | `string` | `""` | Additional CSS classes |
+
+### Features
+
+- 🔢 Smooth number transitions
+- ➕ Increment/decrement buttons
+- 🎛️ Configurable min/max/step
+- 🎨 Customizable appearance
+
+---
+
+## Cursor
+
+Custom cursor component with magnetic hover effects.
+
+### Preview
+
+<div className="my-8 p-6 border rounded-lg">
+  <div className="relative h-32 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-lg flex items-center justify-center">
+    <div className="text-sm text-muted-foreground">Move your cursor in this area</div>
+    <Cursor />
+  </div>
+</div>
+
+### Usage
+
+```tsx
+import { Cursor } from '@/components/animations'
+
+export default function Example() {
+  return (
+    <div className="relative">
+      <Cursor />
+      {/* Your content */}
+    </div>
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | `""` | Additional CSS classes |
+| `size` | `number` | `20` | Cursor size in pixels |
+| `magneticStrength` | `number` | `0.5` | Magnetic attraction strength |
+
+### Features
+
+- 🧲 Magnetic hover effects
+- 🎯 Smooth cursor following
+- 🎨 Customizable appearance
+- 📱 Mobile responsive
+
+---
+
+## Dropdown
+
+Animated navigation dropdown with smooth expand/collapse.
+
+### Usage
+
+```tsx
+import { Dropdown } from '@/components/animations'
+
+const menuItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+]
+
+export default function Example() {
+  return (
+    <Dropdown 
+      trigger="Menu"
+      items={menuItems}
+    />
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `trigger` | `ReactNode` | - | Dropdown trigger element |
+| `items` | `MenuItem[]` | - | Array of menu items |
+| `className` | `string` | `""` | Additional CSS classes |
+
+---
+
+## Magnet
+
+Wrapper component that adds magnetic hover effects to child elements.
+
+### Usage
+
+```tsx
+import { Magnet } from '@/components/animations'
+
+export default function Example() {
+  return (
+    <Magnet strength={0.5}>
+      <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg">
+        Magnetic Button
+      </button>
+    </Magnet>
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Child elements to apply effect to |
+| `strength` | `number` | `0.3` | Magnetic effect strength |
+| `className` | `string` | `""` | Additional CSS classes |
+
+---
+
+## Slider
+
+Interactive animated slider with touch/drag support.
+
+### Usage
+
+```tsx
+import { Slider } from '@/components/animations'
+
+export default function Example() {
+  return (
+    <Slider 
+      min={0}
+      max={100}
+      value={50}
+      onChange={(value) => console.log(value)}
+    />
+  )
+}
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `min` | `number` | `0` | Minimum value |
+| `max` | `number` | `100` | Maximum value |
+| `value` | `number` | - | Current value |
+| `onChange` | `(value: number) => void` | - | Value change handler |
+| `className` | `string` | `""` | Additional CSS classes |
+
+## Animation Principles
+
+### Performance
+- Hardware accelerated transforms
+- Minimal DOM manipulations
+- Proper cleanup on unmount
+
+### Accessibility
+- Respects `prefers-reduced-motion`
+- Keyboard navigation support
+- Screen reader friendly
+
+### Customization
+- CSS custom properties
+- Tailwind class support
+- Theme integration
+
+## Best Practices
+
+### 1. Performance
+```tsx
+// ✅ Good - hardware accelerated
+<motion.div style={{ transform: 'translateX(100px)' }} />
+
+// ❌ Avoid - causes layout
+<motion.div style={{ left: '100px' }} />
+```
+
+### 2. Accessibility
+```tsx
+// ✅ Good - respects user preferences
+<motion.div 
+  animate={{ opacity: 1 }}
+  transition={{ 
+    duration: 0.3,
+    ease: "easeOut"
+  }}
+/>
+```
+
+### 3. Cleanup
+```tsx
+// ✅ Good - proper cleanup
+useEffect(() => {
+  const animation = animate(/* ... */)
+  return () => animation.stop()
+}, [])
+```
