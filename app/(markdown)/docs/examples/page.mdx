@@ -1,11 +1,11 @@
 import DemoShowcase from '@/components/demo-showcase'
-
+import { Dashboard, GamingAppMobile, IntegratedGamingAppMobile, CryptoSeaBattleWhite, ParagameProtocolApp, ParagameCasinoDesktop } from '@/components/ui'
 import { AnimateText, Counter } from '@/components/animations'
 import { Calendar } from '@/components/cards'
 import { ThemeSwitcher } from '@/components/shared'
 import { LinearCards } from '@/components/cards'
-import { Dashboard } from '@/components/dashboard'
 import { Box } from '@/components/craft'
+import { Overview } from '@/components/cards'
 
 
 
@@ -22,11 +22,9 @@ Explore and interact with all components from the PROTOCOL UI Library in real-ti
 ### Dashboard Layout
 
 
-<Box className="flex flex-col items-center justify-center">
-  <LinearCards cards={<LinearCards />} />
-  <LinearCards cards={<LinearCards />} />
-  <LinearCards cards={<LinearCards />} />
-</Box>
+<div className="flex flex-col items-center justify-center">
+ <Overview />
+</div>
 
 
 ```tsx

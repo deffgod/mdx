@@ -8,10 +8,21 @@
     "css": "app/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
+    "darkMode": "class",
+    "themes": {
+      "light": {
+        "primary": "purple",
+        "secondary": "blue",
+        "accent": "green"
+      }
+    },
     "prefix": ""
   },
   "aliases": {
+    "app": "@/app/*",
     "components": "@/components",
+    "ui": "@/components/ui",
+    "hooks": "@/hooks",
     "utils": "@/lib/utils"
   }
 }

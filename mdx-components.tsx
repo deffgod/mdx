@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import { Code } from "@/components/mdx/code";
 import React from "react";
+import { Dashboard, HistoryView, ResearchView, BottomNavigation } from "@/components/ui";
 
 // Default components for MDX files
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -47,5 +48,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     // Inherit any custom components passed in
     ...components,
+    ...Code,
+    // Add custom components for headings
+    h1: ({ children }) => <h1 className="text-4xl font-bold text-white mb-6">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-3xl font-bold text-white mb-6">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-2xl font-bold text-white mb-6">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-xl font-bold text-white mb-6">{children}</h4>,
+    h5: ({ children }) => <h5 className="text-lg font-bold text-white mb-6">{children}</h5>,
+    h6: ({ children }) => <h6 className="text-base font-bold text-white mb-6">{children}</h6>,
+
   };
 }

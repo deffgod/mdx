@@ -9,6 +9,19 @@ import PasswordStrength from '@/components/inputs/password-strength'
 import Sparkles from '@/components/buttons/sparkles'
 import StatusButton from '@/components/buttons/status-button'
 import ThemeSwitcher from '@/components/shared/mode-toggle'
+import LinearCards from '@/components/cards/linear'
+import Overview from '@/components/cards/overview'
+import { ThemeToggle } from '@/components/theme/theme-toggle'
+import { Drawer } from '@/components/ui/drawer'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Select } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { Checkbox } from '@/components/ui/checkbox'
+import { RadioGroup } from '@/components/ui/radio-group'
+import { ParagameCasinoDesktop } from '@/components/ui'
+
+
 
 
 interface DemoItem {
@@ -38,6 +51,14 @@ export default function DemoShowcase() {
       description: 'Animated counter with increment/decrement controls'
     },
     {
+      id: 'theme-toggle',
+      name: 'ThemeToggle',
+      category: 'Theme',
+      component: <ThemeToggle />,
+      description: 'Theme toggle with system detection'
+    },
+    
+    {
       id: 'calendar',
       name: 'Calendar',
       category: 'Cards',
@@ -45,11 +66,32 @@ export default function DemoShowcase() {
       description: 'Interactive calendar with smooth animations'
     },
     {
+      id: 'linear-cards',
+      name: 'LinearCards',
+      category: 'Cards',
+      component: <LinearCards />,
+      description: 'Interactive linear cards with smooth animations'
+    },
+    {
+      id: 'paragame-casino-desktop',
+      name: 'ParagameCasinoDesktop',
+      category: 'Games',
+      component: <ParagameCasinoDesktop />,
+      description: 'Interactive paragame casino desktop with smooth animations'
+    },
+    {
       id: 'google-input',
       name: 'GoogleInput',
       category: 'Inputs',
       component: <GoogleInput label="Email Address" type="email" className="max-w-sm" />,
       description: 'Google-style floating label input field'
+    },
+    {
+      id: 'overview',
+      name: 'Overview',
+      category: 'Cards',
+      component: <Overview />,
+      description: 'Interactive overview with smooth animations'
     },
     {
       id: 'password-strength',
@@ -84,17 +126,18 @@ export default function DemoShowcase() {
   const categories = Array.from(new Set(demos.map(demo => demo.category)))
   
   return (
-    <div className="w-full max-w-6xl mx-auto p-6">
-      <div className="text-center mb-8">
+    <div className="w-full max-w-8xl mx-auto p-2">        
+    <div className="lg:max-w-8xl mx-auto p-2">
+      <div className="text-center mb-4">
         <h1 className="text-3xl font-bold mb-4">Interactive Component Demo</h1>
         <p className="text-muted-foreground">
           Explore and interact with all components from the PROTOCOL UI Library
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Category Navigation */}
-        <div className="lg:col-span-1">
+        <div className="left-0  lg:col-span-1">
           <div className="sticky top-6">
             <h3 className="font-semibold mb-4">Categories</h3>
             {categories.map(category => (
@@ -187,6 +230,7 @@ export default function DemoShowcase() {
           }
         </div>
       </div>
+    </div>
     </div>
   )
 }

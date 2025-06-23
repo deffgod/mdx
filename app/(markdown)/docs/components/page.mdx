@@ -1,3 +1,24 @@
+import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { Meta } from "@/components/mdx/meta";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Overview from "@/components/cards/overview";
+import { AnimateText } from '@/components/animations/animate-text'
+import { Counter } from '@/components/animations/counter'
+import { Cursor } from '@/components/animations/cursor'
+import { Dropdown } from '@/components/animations/dropdown'
+import { Magnet } from '@/components/animations/magnet'
+import { Slider } from '@/components/animations/slider'
+export const metadata = {
+  title: "Components Overview",
+  description: "A showcase of MDX features and components",
+  date: "2025-01-09",
+  author: "Bridger",
+  tags: ["mdx", "next.js", "react"],
+};
+
+<Meta {...metadata} className="mb-8" />
+
 # Components Overview
 
 The PROTOCOL UI Library includes **45+ carefully crafted components** organized into logical categories. Each component is built with modern React patterns, TypeScript, and Framer Motion for smooth animations.

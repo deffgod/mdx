@@ -1,52 +1,83 @@
-"use client"
-import Link from "next/link";
-import Image from "next/image";
-import Screenshot from "@/public/screenshot.jpg";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
-import DocumentationHub from "@/components/documentation-hub";
-import GamingAppMobile from "@/components/gaming-app-mobile";
-import { Entropy } from "@/components/entropy";
-import { FlipLinks } from "@/components/flip-links";
-import FlowingMenu from "@/components/flowing-menu";
-import { TextPressure } from "@/components/interactive-text-pressure";
-import Overview from "@/components/cards/overview";
+"use client";
+import { Scene } from "@/components/ui/hero-section";
 import { Button } from "@/components/ui/button";
-import DemoShowcase from "@/components/demo-showcase";
-import { AnimateText, Counter } from "@/components/animations";
-import Calendar from "@/components/cards/calendar";
-import { LinearCard, LinearCards } from "@/components/cards/linear-cards";
-import image from "@/public/screenshot.jpg";
+import { Badge } from "@/components/ui/badge";
+import { LucideIcon, Cpu, ShieldCheck, Layers, Zap } from "lucide-react";
 
-
-
-
-const MenuItems = [
-  { link: '/protocol', text: 'Protocol', image: 'https://picsum.photos/seed/picsum2/600/400' },
-  { link: '/research', text: 'Research', image: 'https://picsum.photos/seed/picsum3/600/400' },
-  { link: '/casino', text: 'Games', image: 'https://picsum.photos/seed/picsum1/600/400' },
-  { link: '/docs', text: 'Docs', image: 'https://picsum.photos/seed/picsum1/600/400' },
-  { link: '/about', text: 'About Us', image: 'https://picsum.photos/seed/picsum4/600/400' },
+const features: { icon: LucideIcon; title: string; description: string }[] = [
+  {
+    icon: Cpu,
+    title: "Performance",
+    description: "Ultra-fast data processing in every situation.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Security",
+    description: "Advanced protection for complete peace of mind.",
+  },
+  {
+    icon: Layers,
+    title: "Modularity",
+    description: "Easy integration with existing architecture.",
+  },
+  {
+    icon: Zap,
+    title: "Responsiveness",
+    description: "Instant response to every command.",
+  },
 ];
+
+const DemoOne = () => {
+  return (
+    <div className="min-h-svh w-screen bg-gradient-to-br from-black to-[#1A2428] text-white flex flex-col items-center justify-center p-8">
+      <div className="w-full max-w-6xl space-y-12 relative z-10">
+        <div className="flex flex-col items-center text-center space-y-8">
+          <Badge variant="secondary" className="backdrop-blur-sm bg-white/10 border border-white/20 text-white hover:bg-white/20 px-4 py-2 rounded-full">
+            {'✨ Next Generation Tools'}
+          </Badge>
+          
+          <div className="space-y-6 flex items-center justify-center flex-col">
+            <h1 className="text-3xl md:text-6xl font-semibold tracking-tight max-w-3xl">
+              Discover minimalism and power in one place
+            </h1>
+            <p className="text-lg text-neutral-300 max-w-2xl">
+              Designed with aesthetics and performance in mind. Experience ultra-fast processing, advanced security, and intuitive design.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <Button className="text-sm px-8 py-3 rounded-xl bg-white text-black border border-white/10 shadow-none hover:bg-white/90 transition-none">
+                Get Started
+              </Button>
+              <Button className="text-sm px-8 py-3 rounded-xl bg-transparent text-white border border-white/20 shadow-none hover:bg-white/10 transition-none">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="backdrop-blur-sm bg-white/5 border border-white/10 rounded-xl p-4 md:p-6 h-40 md:h-48 flex flex-col justify-start items-start space-y-2 md:space-y-3"
+            >
+              <feature.icon size={18} className="text-white/80 md:w-5 md:h-5" />
+              <h3 className="text-sm md:text-base font-medium">{feature.title}</h3>
+              <p className="text-xs md:text-sm text-neutral-400">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className='absolute inset-0'>
+        <Scene />
+      </div>
+    </div>
+  );
+};
 
 export default function GamesPage() {
   return (
-    <main className="w-full h-full flex items-center justify-center">
-    <LinearCards className="flex flex-col items-center justify-center">
-    <LinearCard title="Animations" href="/docs/components/animations" image={Screenshot} />
-    <LinearCard title="Cards" href="/docs/components/cards" image={image} />
-    <LinearCard title="Buttons" href="/docs/components/buttons" image={image} />
-    <LinearCard title="Inputs" href="/docs/components/inputs" image={image} />
-    <LinearCard title="Shared" href="/docs/components/shared" image={image} /> 
-    <LinearCard title="Animations" href="/docs/components/animations" image={image} />
-    <LinearCard title="Cards" href="/docs/components/cards" image={image} />
-    <LinearCard title="Buttons" href="/docs/components/buttons" image={image} />
-    <LinearCard title="Inputs" href="/docs/components/inputs" image={image} />
-    <LinearCard title="Shared" href="/docs/components/shared" image={image} />
-    <LinearCard title="Animations" href="/docs/components/animations" image={image} />
-    <LinearCard title="Cards" href="/docs/components/cards" image={image} />
-    </LinearCards>
-
-    </main>
+    <div className="min-h-svh w-screen bg-gradient-to-br from-black to-[#1A2428] text-white flex flex-col items-center justify-center p-8">
+      <DemoOne />
+    </div>
   );
 }
-

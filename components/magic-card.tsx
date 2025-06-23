@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect } from "react"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
-
 import { cn } from "@/lib/utils"
 
 export interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,7 +14,7 @@ export function MagicCard({
   children,
   className,
   gradientSize = 200,
-  gradientColor = "#262626",
+  gradientColor = "#000000",
   gradientOpacity = 0.8,
 }: MagicCardProps) {
   const mouseX = useMotionValue(-gradientSize)
@@ -60,5 +59,7 @@ export function MagicCard({
         }}
       />
     </div>
-  )
+  );
 }
+
+export default MagicCard;

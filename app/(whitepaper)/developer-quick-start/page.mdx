@@ -1,0 +1,810 @@
+# ParaGame Protocol: Developer Quick Start Guide
+
+## 🚀 Get Started in 15 Minutes
+
+This guide will get you up and running with ParaGame Protocol development in under 15 minutes. You'll learn how to set up your development environment, make your first API call, and integrate with the PRIZM blockchain.
+
+---
+
+## ⚠️ **DEVELOPER DISCLAIMER**
+
+**This is an EXPERIMENTAL RESEARCH PLATFORM**:
+- 🔬 **For Research/Educational Use Only** - Not for production financial applications
+- ⚡ **High Risk Development** - APIs and features may change rapidly
+- 📚 **Learning Focused** - Designed for blockchain education and experimentation
+- 🚫 **No Production Guarantees** - Platform stability not guaranteed
+
+---
+
+## 📋 Prerequisites
+
+### Required Software
+```bash
+# Node.js 18+ (LTS recommended)
+node --version  # Should be v18.0.0 or higher
+
+# npm or yarn package manager
+npm --version   # v8.0.0 or higher
+
+# Git for version control
+git --version   # v2.25.0 or higher
+
+# Optional: Docker for containerized development
+docker --version  # v20.0.0 or higher
+```
+
+### PRIZM Blockchain Requirements
+- **PRIZM Wallet**: Create at [wallet.prizm.vip](https://wallet.prizm.vip)
+- **Test PZM Tokens**: Minimum 100 PZM for testing
+- **Network Access**: Stable internet connection to PRIZM nodes
+
+### Development Skills
+- **JavaScript/TypeScript**: Intermediate level
+- **Blockchain Basics**: Understanding of wallets, transactions, blocks
+- **REST APIs**: Experience with HTTP requests and JSON
+
+---
+
+## ⚡ Quick Setup (5 Minutes)
+
+### 1. Clone the Starter Project
+```bash
+# Clone the official starter template
+git clone https://github.com/prizmspace/paragame-starter.git
+cd paragame-starter
+
+# Install dependencies
+npm install
+
+# Copy environment template
+cp .env.example .env
+```
+
+### 2. Configure Environment
+```bash
+# Edit .env file with your settings
+nano .env
+```
+
+```env
+# .env configuration
+PARAGAME_API_URL=https://api.paragame.protocol/v1
+PARAGAME_API_KEY=your_api_key_here
+PARAGAME_API_SECRET=your_api_secret_here
+
+# PRIZM Configuration
+PRIZM_NODE_URL=https://node.prizm.vip:9976
+PRIZM_WALLET_ADDRESS=PRIZM-XXXX-XXXX-XXXX-XXXXX
+PRIZM_PRIVATE_KEY=your_private_key_here
+
+# Development Settings
+NODE_ENV=development
+LOG_LEVEL=debug
+```
+
+### 3. Verify Setup
+```bash
+# Run the verification script
+npm run verify-setup
+
+# Should output:
+# ✅ Node.js version: v18.17.0
+# ✅ NPM version: 9.6.7
+# ✅ Environment configured
+# ✅ PRIZM wallet connected
+# ✅ ParaGame API accessible
+# 🎉 Setup complete! Ready to develop.
+```
+
+---
+
+## 🏁 Your First Integration (10 Minutes)
+
+### Step 1: Connect to Current Epoch
+```javascript
+// src/examples/01-get-current-epoch.js
+const { ParaGameSDK } = require('@paragame/sdk');
+
+async function getCurrentEpoch() {
+  try {
+    // Initialize SDK
+    const sdk = new ParaGameSDK({
+      apiKey: process.env.PARAGAME_API_KEY,
+      apiSecret: process.env.PARAGAME_API_SECRET,
+      environment: 'testnet' // Use 'mainnet' for production
+    });
+
+    // Get current epoch information
+    const epoch = await sdk.epochs.getCurrent();
+    
+    console.log('🎯 Current Epoch Information:');
+    console.log(`   Epoch ID: ${epoch.epochId}`);
+    console.log(`   Status: ${epoch.status}`);
+    console.log(`   Participants: ${epoch.participantCount}`);
+    console.log(`   Prize Pool: ${epoch.prizePool} PZM`);
+    console.log(`   Remaining Time: ${epoch.estimatedTimeRemaining}`);
+    
+    return epoch;
+  } catch (error) {
+    console.error('❌ Error:', error.message);
+    throw error;
+  }
+}
+
+// Run the example
+getCurrentEpoch();
+```
+
+### Step 2: Submit a Test Participation
+```javascript
+// src/examples/02-submit-participation.js
+const { ParaGameSDK, PRIZMWallet } = require('@paragame/sdk');
+
+async function submitParticipation() {
+  try {
+    // Initialize components
+    const sdk = new ParaGameSDK({
+      apiKey: process.env.PARAGAME_API_KEY,
+      apiSecret: process.env.PARAGAME_API_SECRET,
+      environment: 'testnet'
+    });
+
+    const wallet = new PRIZMWallet({
+      nodeUrl: process.env.PRIZM_NODE_URL,
+      privateKey: process.env.PRIZM_PRIVATE_KEY
+    });
+
+    // Get current epoch
+    const epoch = await sdk.epochs.getCurrent();
+    
+    if (epoch.status !== 'REGISTRATION') {
+      throw new Error('Epoch is not accepting registrations');
+    }
+
+    // Generate random combination
+    const combination = generateRandomCombination();
+    const stakeAmount = '10.00000000'; // 10 PZM
+
+    console.log('🎲 Submitting participation:');
+    console.log(`   Combination: ${combination.join(', ')}`);
+    console.log(`   Stake: ${stakeAmount} PZM`);
+
+    // Submit participation
+    const participation = await sdk.participate({
+      epochId: epoch.epochId,
+      combination: combination,
+      stakeAmount: stakeAmount,
+      participantAddress: wallet.getAddress()
+    });
+
+    console.log('✅ Participation submitted!');
+    console.log(`   Participation ID: ${participation.participationId}`);
+    console.log(`   Transaction Hash: ${participation.transactionHash}`);
+    
+    return participation;
+  } catch (error) {
+    console.error('❌ Error:', error.message);
+    throw error;
+  }
+}
+
+function generateRandomCombination() {
+  const numbers = [];
+  while (numbers.length < 6) {
+    const num = Math.floor(Math.random() * 36) + 1;
+    if (!numbers.includes(num)) {
+      numbers.push(num);
+    }
+  }
+  return numbers.sort((a, b) => a - b);
+}
+
+// Run the example
+submitParticipation();
+```
+
+### Step 3: Monitor Results in Real-Time
+```javascript
+// src/examples/03-realtime-monitoring.js
+const { ParaGameSDK } = require('@paragame/sdk');
+
+async function monitorEpochRealtime() {
+  const sdk = new ParaGameSDK({
+    apiKey: process.env.PARAGAME_API_KEY,
+    apiSecret: process.env.PARAGAME_API_SECRET,
+    environment: 'testnet'
+  });
+
+  console.log('🔄 Starting real-time epoch monitoring...');
+
+  // Connect to WebSocket for real-time updates
+  const ws = sdk.websocket.connect();
+
+  // Subscribe to epoch updates
+  ws.subscribe('epochs', {
+    onUpdate: (data) => {
+      console.log(`📊 Epoch ${data.epochId} Update:`);
+      console.log(`   Participants: ${data.participantCount}`);
+      console.log(`   Prize Pool: ${data.prizePool} PZM`);
+      console.log(`   Remaining Blocks: ${data.remainingBlocks}`);
+    },
+    
+    onGeneration: (data) => {
+      console.log(`🎯 Winning Numbers Generated for Epoch ${data.epochId}:`);
+      console.log(`   Numbers: ${data.winningNumbers.join(', ')}`);
+      console.log(`   Generated At: ${data.generatedAt}`);
+    },
+    
+    onDistribution: (data) => {
+      console.log(`💰 Prize Distributed:`);
+      console.log(`   Winner: ${data.participantAddress}`);
+      console.log(`   Tier: ${data.tier}`);
+      console.log(`   Amount: ${data.prizeAmount} PZM`);
+    }
+  });
+
+  // Keep the connection alive
+  process.on('SIGINT', () => {
+    console.log('\n👋 Closing WebSocket connection...');
+    ws.disconnect();
+    process.exit(0);
+  });
+}
+
+// Run the monitoring
+monitorEpochRealtime();
+```
+
+---
+
+## 🧰 Essential Development Tools
+
+### 1. ParaGame SDK Installation
+```bash
+# Install the official SDK
+npm install @paragame/sdk
+
+# TypeScript types (recommended)
+npm install --save-dev @types/paragame
+
+# Additional utilities
+npm install @paragame/utils @paragame/testing
+```
+
+### 2. PRIZM Blockchain Tools
+```bash
+# PRIZM node interaction
+npm install @prizm/api-client
+
+# Wallet management
+npm install @prizm/wallet-utils
+
+# Cryptographic utilities
+npm install @prizm/crypto
+```
+
+### 3. Development Utilities
+```bash
+# Environment management
+npm install dotenv
+
+# Logging and debugging
+npm install winston debug
+
+# Testing frameworks
+npm install --save-dev jest supertest
+
+# Code quality
+npm install --save-dev eslint prettier
+```
+
+---
+
+## 📚 Code Examples Library
+
+### Working with Epochs
+```typescript
+import { ParaGameSDK, EpochStatus } from '@paragame/sdk';
+
+class EpochManager {
+  private sdk: ParaGameSDK;
+
+  constructor(apiKey: string, apiSecret: string) {
+    this.sdk = new ParaGameSDK({ apiKey, apiSecret });
+  }
+
+  // Get epoch history with pagination
+  async getEpochHistory(page: number = 1, limit: number = 20) {
+    return await this.sdk.epochs.getHistory({
+      page,
+      limit,
+      status: EpochStatus.COMPLETED
+    });
+  }
+
+  // Wait for epoch status change
+  async waitForEpochStatus(epochId: number, targetStatus: EpochStatus) {
+    return new Promise((resolve, reject) => {
+      const checkStatus = async () => {
+        try {
+          const epoch = await this.sdk.epochs.get(epochId);
+          if (epoch.status === targetStatus) {
+            resolve(epoch);
+          } else {
+            setTimeout(checkStatus, 5000); // Check every 5 seconds
+          }
+        } catch (error) {
+          reject(error);
+        }
+      };
+      checkStatus();
+    });
+  }
+
+  // Calculate odds for combination
+  calculateWinningOdds(combination: number[]): object {
+    const totalCombinations = this.binomialCoefficient(36, 6);
+    const exactOrderOdds = 1 / totalCombinations;
+    const anyOrderOdds = 1 / this.binomialCoefficient(36, 6);
+    
+    return {
+      exactOrder: exactOrderOdds,
+      anyOrder: anyOrderOdds,
+      totalCombinations: totalCombinations
+    };
+  }
+
+  private binomialCoefficient(n: number, k: number): number {
+    let result = 1;
+    for (let i = 1; i <= k; i++) {
+      result = result * (n - i + 1) / i;
+    }
+    return result;
+  }
+}
+```
+
+### PLRNG Integration and Verification
+```typescript
+import { PLRNGVerifier } from '@paragame/utils';
+
+class RandomnessVerifier {
+  private verifier: PLRNGVerifier;
+
+  constructor() {
+    this.verifier = new PLRNGVerifier();
+  }
+
+  // Verify generated numbers authenticity
+  async verifyNumbers(epochId: number, numbers: number[]): Promise<boolean> {
+    try {
+      const verification = await this.verifier.verify({
+        epochId,
+        numbers,
+        blockchainData: await this.getBlockchainData(epochId)
+      });
+
+      console.log('🔍 Verification Results:');
+      console.log(`   Numbers Valid: ${verification.numbersValid}`);
+      console.log(`   Entropy Sources Verified: ${verification.entropyValid}`);
+      console.log(`   Cryptographic Proof Valid: ${verification.proofValid}`);
+      
+      return verification.isValid;
+    } catch (error) {
+      console.error('❌ Verification failed:', error.message);
+      return false;
+    }
+  }
+
+  // Analyze randomness quality
+  async analyzeRandomnessQuality(epochId: number): Promise<object> {
+    const sdk = new ParaGameSDK(/* config */);
+    const quality = await sdk.randomness.getQuality(epochId);
+    
+    return {
+      uniformityScore: quality.uniformityScore,
+      independenceScore: quality.independenceScore,
+      entropyLevel: quality.entropyMeasurement,
+      recommendation: this.getQualityRecommendation(quality)
+    };
+  }
+
+  private getQualityRecommendation(quality: any): string {
+    if (quality.uniformityScore > 0.9 && quality.independenceScore > 0.9) {
+      return 'Excellent randomness quality';
+    } else if (quality.uniformityScore > 0.8 && quality.independenceScore > 0.8) {
+      return 'Good randomness quality';
+    } else {
+      return 'Review randomness parameters';
+    }
+  }
+
+  private async getBlockchainData(epochId: number) {
+    // Implementation to fetch blockchain data for verification
+    // This would connect to PRIZM network and get relevant block data
+  }
+}
+```
+
+### Prize Distribution Analysis
+```typescript
+import { PrizeCalculator } from '@paragame/utils';
+
+class PrizeAnalyzer {
+  private calculator: PrizeCalculator;
+
+  constructor() {
+    this.calculator = new PrizeCalculator();
+  }
+
+  // Calculate potential winnings for a combination
+  calculatePotentialWinnings(combination: number[], currentPool: string): object {
+    const poolAmount = parseFloat(currentPool);
+    
+    return {
+      exactSequence: poolAmount * 0.90,
+      allNumbers: poolAmount * 0.50 * 0.50, // 50% of remaining after exact
+      fiveMatch: poolAmount * 0.50 * 0.50 * 0.25, // 25% of remaining
+      fourMatch: poolAmount * 0.50 * 0.50 * 0.75 * 0.15,
+      threeMatch: poolAmount * 0.50 * 0.50 * 0.75 * 0.85 * 0.05,
+      twoMatch: poolAmount * 0.50 * 0.50 * 0.75 * 0.85 * 0.95 * 0.02
+    };
+  }
+
+  // Analyze historical prize distributions
+  async analyzeHistoricalDistributions(epochCount: number = 100): Promise<object> {
+    const sdk = new ParaGameSDK(/* config */);
+    const epochs = await sdk.epochs.getHistory({ limit: epochCount });
+    
+    const analysis = {
+      averagePrizePool: 0,
+      winningPatterns: {},
+      tierDistributions: {},
+      rolloverFrequency: 0
+    };
+
+    for (const epoch of epochs.data) {
+      if (epoch.status === 'COMPLETED') {
+        analysis.averagePrizePool += parseFloat(epoch.prizePool);
+        // Additional analysis logic...
+      }
+    }
+
+    analysis.averagePrizePool /= epochs.data.length;
+    return analysis;
+  }
+}
+```
+
+---
+
+## 🧪 Testing Your Integration
+
+### 1. Unit Testing Setup
+```javascript
+// tests/integration.test.js
+const { ParaGameSDK } = require('@paragame/sdk');
+const { expect } = require('chai');
+
+describe('ParaGame Integration Tests', () => {
+  let sdk;
+
+  before(() => {
+    sdk = new ParaGameSDK({
+      apiKey: process.env.TEST_API_KEY,
+      apiSecret: process.env.TEST_API_SECRET,
+      environment: 'testnet'
+    });
+  });
+
+  describe('Epoch Operations', () => {
+    it('should fetch current epoch', async () => {
+      const epoch = await sdk.epochs.getCurrent();
+      
+      expect(epoch).to.have.property('epochId');
+      expect(epoch).to.have.property('status');
+      expect(epoch.status).to.be.oneOf(['REGISTRATION', 'CLOSED', 'COMPLETED']);
+    });
+
+    it('should validate combination format', () => {
+      const validCombination = [1, 15, 23, 31, 35, 36];
+      const invalidCombination = [1, 15, 23, 31, 35, 37]; // 37 is out of range
+
+      expect(sdk.utils.validateCombination(validCombination)).to.be.true;
+      expect(sdk.utils.validateCombination(invalidCombination)).to.be.false;
+    });
+  });
+
+  describe('PRIZM Integration', () => {
+    it('should connect to PRIZM network', async () => {
+      const networkInfo = await sdk.blockchain.getNetworkInfo();
+      
+      expect(networkInfo).to.have.property('blockHeight');
+      expect(networkInfo).to.have.property('networkId');
+      expect(networkInfo.networkId).to.equal('PRIZM_TESTNET');
+    });
+  });
+});
+```
+
+### 2. Integration Testing
+```bash
+# Run comprehensive integration tests
+npm run test:integration
+
+# Test specific components
+npm run test:epochs
+npm run test:plrng
+npm run test:prizes
+
+# Performance testing
+npm run test:performance
+```
+
+### 3. Load Testing Example
+```javascript
+// tests/load-test.js
+const { performance } = require('perf_hooks');
+
+async function loadTestAPI() {
+  const sdk = new ParaGameSDK(/* config */);
+  const concurrent = 10;
+  const requests = 100;
+
+  console.log(`🔄 Starting load test: ${concurrent} concurrent, ${requests} total requests`);
+
+  const start = performance.now();
+  const promises = [];
+
+  for (let i = 0; i < requests; i++) {
+    promises.push(sdk.epochs.getCurrent());
+    
+    if (promises.length >= concurrent) {
+      await Promise.all(promises);
+      promises.length = 0;
+    }
+  }
+
+  // Handle remaining promises
+  if (promises.length > 0) {
+    await Promise.all(promises);
+  }
+
+  const end = performance.now();
+  const duration = end - start;
+
+  console.log(`✅ Load test completed:`);
+  console.log(`   Duration: ${duration.toFixed(2)}ms`);
+  console.log(`   Requests per second: ${(requests / (duration / 1000)).toFixed(2)}`);
+  console.log(`   Average response time: ${(duration / requests).toFixed(2)}ms`);
+}
+
+loadTestAPI();
+```
+
+---
+
+## 🔧 Development Tools and Scripts
+
+### 1. Useful NPM Scripts
+```json
+{
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "jest",
+    "test:integration": "jest --config jest.integration.config.js",
+    "lint": "eslint src/",
+    "format": "prettier --write src/",
+    "verify-setup": "node scripts/verify-setup.js",
+    "generate-wallet": "node scripts/generate-wallet.js",
+    "check-balance": "node scripts/check-balance.js",
+    "monitor-epoch": "node scripts/monitor-epoch.js",
+    "analyze-history": "node scripts/analyze-history.js"
+  }
+}
+```
+
+### 2. Development Helper Scripts
+```javascript
+// scripts/generate-wallet.js
+const { PRIZMWallet } = require('@paragame/sdk');
+
+function generateWallet() {
+  const wallet = PRIZMWallet.generate();
+  
+  console.log('🔐 New PRIZM Wallet Generated:');
+  console.log(`   Address: ${wallet.address}`);
+  console.log(`   Private Key: ${wallet.privateKey}`);
+  console.log(`   Passphrase: ${wallet.passphrase}`);
+  console.log('');
+  console.log('⚠️  IMPORTANT: Store these credentials securely!');
+  console.log('   Never share your private key or passphrase.');
+}
+
+generateWallet();
+```
+
+```javascript
+// scripts/monitor-epoch.js
+const { ParaGameSDK } = require('@paragame/sdk');
+
+async function monitorCurrentEpoch() {
+  const sdk = new ParaGameSDK(/* config */);
+  
+  while (true) {
+    try {
+      const epoch = await sdk.epochs.getCurrent();
+      
+      console.clear();
+      console.log('📊 ParaGame Epoch Monitor');
+      console.log('========================');
+      console.log(`Epoch ID: ${epoch.epochId}`);
+      console.log(`Status: ${epoch.status}`);
+      console.log(`Participants: ${epoch.participantCount}`);
+      console.log(`Prize Pool: ${epoch.prizePool} PZM`);
+      console.log(`Remaining: ${epoch.estimatedTimeRemaining}`);
+      console.log(`Last Update: ${new Date().toLocaleTimeString()}`);
+      
+      if (epoch.winningNumbers) {
+        console.log(`Winning Numbers: ${epoch.winningNumbers.join(', ')}`);
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 30000)); // Update every 30s
+    } catch (error) {
+      console.error('❌ Monitor error:', error.message);
+      await new Promise(resolve => setTimeout(resolve, 60000)); // Wait 1 minute on error
+    }
+  }
+}
+
+monitorCurrentEpoch();
+```
+
+---
+
+## 🚨 Common Issues and Troubleshooting
+
+### 1. Connection Issues
+```javascript
+// Network connectivity debugging
+async function debugConnection() {
+  try {
+    // Test PRIZM network connectivity
+    const response = await fetch('https://node.prizm.vip:9976/prizm');
+    if (!response.ok) {
+      throw new Error(`PRIZM node responded with status: ${response.status}`);
+    }
+    console.log('✅ PRIZM network: Connected');
+
+    // Test ParaGame API connectivity
+    const apiResponse = await fetch('https://api.paragame.protocol/v1/health');
+    if (!apiResponse.ok) {
+      throw new Error(`ParaGame API responded with status: ${apiResponse.status}`);
+    }
+    console.log('✅ ParaGame API: Connected');
+
+  } catch (error) {
+    console.error('❌ Connection issue:', error.message);
+    
+    // Provide troubleshooting steps
+    console.log('\n🔧 Troubleshooting steps:');
+    console.log('1. Check your internet connection');
+    console.log('2. Verify API credentials in .env file');
+    console.log('3. Ensure firewall allows outbound connections');
+    console.log('4. Try switching to a different network');
+  }
+}
+```
+
+### 2. Authentication Problems
+```javascript
+// Debug authentication issues
+function debugAuthentication() {
+  const apiKey = process.env.PARAGAME_API_KEY;
+  const apiSecret = process.env.PARAGAME_API_SECRET;
+
+  if (!apiKey || !apiSecret) {
+    console.error('❌ Missing API credentials');
+    console.log('🔧 Add API_KEY and API_SECRET to your .env file');
+    return;
+  }
+
+  if (apiKey.length < 32) {
+    console.error('❌ API key appears to be invalid (too short)');
+    return;
+  }
+
+  if (apiSecret.length < 32) {
+    console.error('❌ API secret appears to be invalid (too short)');
+    return;
+  }
+
+  console.log('✅ API credentials format looks correct');
+  console.log('🔧 If still having issues, verify credentials with support');
+}
+```
+
+### 3. Transaction Failures
+```javascript
+// Debug PRIZM transaction issues
+async function debugTransaction(txHash) {
+  try {
+    const sdk = new ParaGameSDK(/* config */);
+    const txStatus = await sdk.blockchain.getTransaction(txHash);
+    
+    console.log('📊 Transaction Status:');
+    console.log(`   Hash: ${txStatus.transactionHash}`);
+    console.log(`   Status: ${txStatus.status}`);
+    console.log(`   Confirmations: ${txStatus.confirmations}`);
+    
+    if (txStatus.status === 'FAILED') {
+      console.log(`   Error: ${txStatus.error}`);
+      console.log('\n🔧 Common solutions:');
+      console.log('   - Check wallet balance');
+      console.log('   - Verify transaction fee');
+      console.log('   - Ensure network connectivity');
+    }
+  } catch (error) {
+    console.error('❌ Transaction lookup failed:', error.message);
+  }
+}
+```
+
+---
+
+## 📖 Next Steps
+
+### 1. Explore Advanced Features
+- **WebSocket Integration**: Real-time updates and notifications
+- **Batch Operations**: Multiple participations and queries
+- **Analytics Integration**: Historical data analysis
+- **Custom PLRNG**: Implement custom randomness sources
+
+### 2. Read Advanced Documentation
+- [Complete API Reference](./api-reference.md)
+- [Technical Architecture](./technical-architecture.md)
+- [Security Best Practices](./security-framework.md)
+- [PRIZM Blockchain Integration](./prizm-integration.md)
+
+### 3. Join the Community
+- **GitHub**: Contribute to open-source development
+- **Developer Forum**: Ask questions and share experiences
+- **Academic Discord**: Research-focused discussions
+- **Monthly Webinars**: Technical deep-dives and updates
+
+### 4. Build Production Applications
+- **Security Review**: Comprehensive security assessment
+- **Performance Testing**: Load testing and optimization
+- **Compliance Check**: Legal and regulatory review
+- **Production Deployment**: Scaling and monitoring setup
+
+---
+
+## 💬 Getting Help
+
+### Developer Support Channels
+- **GitHub Issues**: [Technical problems and bug reports](https://github.com/prizmspace/paragame/issues)
+- **Developer Email**: dev-support@prizm.tech
+- **Documentation**: Complete guides and references
+- **Community Forum**: Peer-to-peer developer support
+
+### Quick Help Commands
+```bash
+# Check system status
+npm run health-check
+
+# Validate configuration
+npm run verify-config
+
+# Reset development environment
+npm run reset-env
+
+# Generate debug report
+npm run debug-report
+```
+
+---
+
+*Ready to build the future of fair blockchain gaming? Start with these examples and join our community of researchers and developers!*
+
+**Last Updated**: December 2024 | **Version**: 1.0 | **Status**: Active Development

@@ -1,4 +1,6 @@
+
 "use client"
+
 import React, { useState, useEffect, useMemo, useCallback, useReducer, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, QrCode, Grid3X3, Calendar, Play, Settings, History, BookOpen, Activity, Zap, Globe, Link, ChevronLeft, ChevronRight, TrendingUp, Target, Layers, Shuffle, Dices, Gamepad2, RotateCcw, AlertTriangle, Volume2, VolumeX, BarChart3, TrendingDown, Clock, Award, Flame, Snowflake, RefreshCw, Maximize, Minimize, Palette } from 'lucide-react';
@@ -7,6 +9,7 @@ interface GameState {
   selectedGame: string | null;
   balance: number;
   currentBet: string;
+  gameData: any;
   settings: {
     soundEnabled: boolean;
     autoPlay: boolean;
@@ -21,14 +24,6 @@ interface GameState {
     lossStreak: number;
     bestMultiplier: number;
   };
-  games: {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-    link: string;
-  }[];
-  gameData: any;
 }
 
 // Game state reducer for better state management
@@ -1006,8 +1001,6 @@ const RouletteGame: React.FC<{
     </div>
   );
 });
-
-RouletteGame.displayName = 'RouletteGame';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'games' | 'dashboard' | 'history' | 'research'>('games');
@@ -2958,7 +2951,7 @@ const BottomNavigation: React.FC<{
     { id: 'games', icon: Gamepad2, label: 'Games' },
     { id: 'dashboard', icon: BarChart3, label: 'Dashboard' },
     { id: 'history', icon: History, label: 'History' },
-    { id: 'about', icon: BookOpen, label: 'About' }
+    { id: 'research', icon: BookOpen, label: 'Research' }
   ], []);
 
   return (
@@ -3024,4 +3017,5 @@ const BottomNavigation: React.FC<{
   );
 });
 
-export default {  Dashboard, HistoryView, ResearchView, BottomNavigation };
+export default {  Dashboard, HistoryView, ResearchView, BottomNavigation }; 
+      

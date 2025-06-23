@@ -1,29 +1,18 @@
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import Link from "next/link";
 import { Main, Section, Container, Article, Prose, Box } from "@/components/craft";
-import { Craft } from "@/components/craft";
 import { Accordion } from "@/components/accordion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AnimateText } from "@/components/animations/animate-text";
-import { Counter } from "@/components/animations/counter";
-import { Calendar } from "@/components/cards/calendar";
-import { GoogleInput } from "@/components/inputs/google";
-import { PasswordStrength } from "@/components/inputs/password-strength";
-import { Sparkles } from "@/components/buttons/sparkles";
-import { StatusButton } from "@/components/buttons/status-button";
-import { ThemeSwitcher } from "@/components/shared/mode-toggle";
+import { Button } from "@/components/ui/button"
+import { Metadata } from "next"
+
+
+
+export const metadata = {
+  title: "ParaGame Protocol: Whitepaper",
+  description: "ParaGame Protocol is a research platform for provably fair blockchain gaming built on the PRIZM blockchain.",
+  keywords: "ParaGame Protocol, whitepaper, provably fair, blockchain gaming, PRIZM blockchain",
+}
+
 
 
 export default function WhitepaperPage({
@@ -149,3 +138,5 @@ export default function WhitepaperPage({
     </div>
   );
 }
+
+export default WhitepaperPage;  

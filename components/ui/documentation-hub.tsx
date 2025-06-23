@@ -1,14 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-
+import React from 'react';
 
 interface DocumentationSection {
   title: string;
@@ -124,10 +114,10 @@ const DocumentationHub: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-550 to-gray-950 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Paragame Documentation Hub
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -164,9 +154,9 @@ const DocumentationHub: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col items-center justify-center">
+
         <div className="mt-12 bg-blue-50 rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-white mb-4">Quick Navigation</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Quick Navigation</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <a href="#examples" className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow text-center">
               <div className="text-blue-600 font-medium">Examples</div>
@@ -185,9 +175,8 @@ const DocumentationHub: React.FC = () => {
               <div className="text-sm text-gray-500">Terms & Compliance</div>
             </a>
           </div>
-          </div>
         </div>
-        </div>
+      </div>
     </div>
   );
 };

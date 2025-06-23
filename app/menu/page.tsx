@@ -1,13 +1,20 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import FlowingMenu from "@/components/flowing-menu";
+import MagicCard from '@/components/magic-card';
+import NotchTwo from '@/components/cards/notch-two';
 
 const demoItems = [
+  { link: '/', text: 'Home', image: 'https://picsum.photos/seed/picsum1/600/400' },
   { link: '/protocol', text: 'Protocol', image: 'https://picsum.photos/seed/picsum2/600/400' },
   { link: '/research', text: 'Research', image: 'https://picsum.photos/seed/picsum3/600/400' },
   { link: '/games', text: 'Games', image: 'https://picsum.photos/seed/picsum1/600/400' },
   { link: '/docs', text: 'Docs', image: 'https://picsum.photos/seed/picsum1/600/400' },
   { link: '/about', text: 'About Us', image: 'https://picsum.photos/seed/picsum4/600/400' },
+  { link: '/menu', text: 'Menu', image: 'https://picsum.photos/seed/picsum1/600/400' },
+  { link: '/docs/examples', text: 'Examples', image: 'https://picsum.photos/seed/picsum5/600/400' },
+  { link: '/intros', text: 'Intros', image: 'https://picsum.photos/seed/picsum1/600/400' },
+  { link: '/whitepaper', text: 'Whitepaper', image: 'https://picsum.photos/seed/picsum1/600/400' },
 ];
 
 const FlowingMenuDemo = () => {
@@ -46,6 +53,9 @@ const FlowingMenuDemo = () => {
           style={{ height: '600px', width: '100%', maxWidth: '450px' }}
         >
           <FlowingMenu items={demoItems} />
+          <MagicCard className="rounded-lg m-2 w-full">
+            <NotchTwo />
+          </MagicCard>
         </div>
       </div>
     </>
